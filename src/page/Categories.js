@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import * as API from "../api/index";
 import { Edit2 } from "react-feather";
 import { IMG } from "../api/constant";
+import { toast } from "react-toastify";
 const Categories = () => {
   const [isActive, setIsActive] = useState(false);
   const [categoriData, setCategoriData] = useState("");
@@ -40,7 +41,27 @@ const Categories = () => {
     try {
       const response = await API.subCategoryId(categoriId);
       setTableData(response.data.data);
+    } catch (error) {}
+  };
+
+  const userDelete = async (cataId) => {
+    try {
+      const response = await API.subCategoryId_delete(cataId);
       console.log("response", response);
+      if (response.data.success === 1) {
+        getAll_subcatagori();
+        toast(response.data.msg, {
+          position: "top-right",
+          autoClose: 5000,
+          type: "success",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     } catch (error) {}
   };
 
@@ -143,16 +164,17 @@ const Categories = () => {
                             </td>
                             <td>
                               <div className="d-flex justify-content-center">
-                                <button
-                                  type="button"
+                                <Link
+                                  to="/edit-categories"
+                                  state={{ id: item.id }}
                                   //onClick={() => userStatus(item.id)}
                                   class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
                                 >
                                   <Edit2 size={20} />
-                                </button>
+                                </Link>
                                 <button
                                   type="button"
-                                  //onClick={() => userDelete(item.id)}
+                                  onClick={() => userDelete(item.id)}
                                   class="align-items-center btn btn-danger d-flex font-20 px-2"
                                 >
                                   <i class="las la-times-circle"></i>

@@ -12,6 +12,7 @@ import Categories from "../page/Categories";
 import AddCategoris from "../page/AddCategoris";
 import Song from "../page/Song";
 import AddSong from "../page/AddSong";
+import EditCategoris from "../page/EditCategoris";
 const AppRoute = () => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
@@ -37,6 +38,7 @@ const AppRoute = () => {
                   <Route path="/add-categories" element={<AddCategoris />} />
                   <Route path="/song-list" element={<Song />} />
                   <Route path="/add-music" element={<AddSong />} />
+                  <Route path="/edit-categories" element={<EditCategoris />} />
                 </Routes>
               </div>
             </div>

@@ -80,8 +80,39 @@ export const getMain_subCategory = async (data) => {
 
 export const subCategoryId = async (data) => {
   try {
-    const url = c.SUBCATAGORIES + "/" + data;
+    const url = c.SUBCATAGORIES + "/categorywise/" + data;
     const res = await axios.get(url, data);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const subCategoryId_delete = async (data) => {
+  try {
+    const url = c.SUBCATAGORIES + "/" + data;
+    const res = await axios.delete(url);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const subCategoryId_editGet = async (data) => {
+  try {
+    const url = c.SUBCATAGORIES + "/" + data;
+    console.log("url", url);
+    const res = await axios.get(url);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const subCategoryId_edit = async (data) => {
+  try {
+    const url = c.SUBCATAGORIES;
+    const res = await axios.patch(url, data);
     return res;
   } catch (e) {
     return e.response;
