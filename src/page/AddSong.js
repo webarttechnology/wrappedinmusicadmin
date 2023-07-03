@@ -5,11 +5,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 const initialData = {
   name: "",
-  details: "",
+  category_id: "",
+  subcategory_id: "2",
+  artist_name: "",
+  music_file: "",
 };
 const AddSong = () => {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
   const [catagoriId, setCatagoriId] = useState("");
@@ -72,7 +74,7 @@ const AddSong = () => {
             </div>
           </div>
           <div class="widget-content widget-content-area">
-            <div className="row">
+            <div className="row justify-content-center">
               <div className="col-md-6">
                 <div class="form-group">
                   <label>
@@ -98,6 +100,7 @@ const AddSong = () => {
                   <select
                     onChange={(e) => setCatagoriId(e.target.value)}
                     class="form-control"
+                    name="category_id"
                   >
                     <option>--- Select ---</option>
                     {catagoriData.map((item, index) => (
@@ -108,10 +111,30 @@ const AddSong = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div class="form-group">
                   <label>
-                    Images
+                    Sub-category
+                    <span class="text-danger">*</span>
+                  </label>
+                  <select
+                    onChange={(e) => setCatagoriId(e.target.value)}
+                    class="form-control"
+                    name="category_id"
+                  >
+                    <option>--- Select ---</option>
+                    {catagoriData.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="col-md-7">
+                <div class="form-group">
+                  <label>
+                    File
                     <span class="text-danger">*</span>
                   </label>
                   <div id="dropzone">
