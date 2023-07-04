@@ -11,6 +11,7 @@ const UserList = () => {
   const [userStas, setUserStas] = useState("");
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState("");
+
   const commonDataTable = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {

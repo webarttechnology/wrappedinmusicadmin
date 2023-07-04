@@ -79,8 +79,10 @@ export const getMain_subCategory = async (data) => {
 };
 
 export const subCategoryId = async (data) => {
+  console.log("data", data);
   try {
     const url = c.SUBCATAGORIES + "/categorywise/" + data;
+    console.log("url", url);
     const res = await axios.get(url, data);
     return res;
   } catch (e) {

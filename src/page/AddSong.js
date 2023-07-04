@@ -3,20 +3,25 @@ import { useState } from "react";
 import * as API from "../api/index";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import Select from "react-dropdown-select";
 const initialData = {
   name: "",
   category_id: "",
   subcategory_id: "2",
-  artist_name: "",
   music_file: "",
+  description: "",
 };
+
 const AddSong = () => {
   const navigate = useNavigate();
+  const [values, setValues] = useState("");
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
-
+  const [searchData, setSearchData] = useState([]);
+  console.log("imageData", imageData);
   const imageUploading = (e) => {
     let images = e.target.files[0];
     var reader = new FileReader();
@@ -34,7 +39,16 @@ const AddSong = () => {
     } catch (error) {}
   };
 
-  const handalerChanges = (e) => {
+  const handalerChangesCata = async (e) => {
+    setCatagoriId(e.target.value);
+    try {
+      const response = await API.subCategoryId(e.target.value);
+      console.log("responseSSS", response);
+      setSearchData(response.data.data);
+    } catch (error) {}
+  };
+
+  const handalerChanges = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -43,20 +57,21 @@ const AddSong = () => {
     try {
       const reqObj = {
         name: formData.name,
-        details: formData.details,
         category_id: catagoriId,
-        image: imageData,
+        subcategory_id: formData.subcategory_id,
+        description: formData.description,
+        music_file: imageData,
       };
       console.log("reqObj", reqObj);
-      const response = await API.add_subCategory(reqObj);
-      console.log("response", response);
-      if (response.data.success === 1) {
-        navigate("/categories");
-      }
+      // const response = await API.add_subCategory(reqObj);
+      // console.log("response", response);
+      // if (response.data.success === 1) {
+      //   navigate("/categories");
+      // }
     } catch (error) {}
   };
 
-  const btnDisabal = !formData.name || !formData.details || !imageData;
+  // const btnDisabal = !formData.name || !formData.details || !imageData;
 
   useEffect(() => {
     get_categoryList();
@@ -98,7 +113,7 @@ const AddSong = () => {
                     <span class="text-danger">*</span>
                   </label>
                   <select
-                    onChange={(e) => setCatagoriId(e.target.value)}
+                    onChange={handalerChangesCata}
                     class="form-control"
                     name="category_id"
                   >
@@ -117,13 +132,15 @@ const AddSong = () => {
                     Sub-category
                     <span class="text-danger">*</span>
                   </label>
+
                   <select
-                    onChange={(e) => setCatagoriId(e.target.value)}
+                    onChange={handalerChanges}
                     class="form-control"
-                    name="category_id"
+                    name="subcategory_id"
+                    //value={formData.subcategory_id}
                   >
                     <option>--- Select ---</option>
-                    {catagoriData.map((item, index) => (
+                    {searchData.map((item, index) => (
                       <option key={index} value={item.id}>
                         {item.name}
                       </option>
@@ -131,7 +148,24 @@ const AddSong = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-md-7">
+
+              <div className="col-md-12">
+                <div class="form-group">
+                  <label>
+                    Description
+                    <span class="text-danger">*</span>
+                  </label>
+                  <textarea
+                    value={formData.description}
+                    name="description"
+                    onChange={handalerChanges}
+                    placeholder="Enter hare"
+                    class="form-control"
+                    rows="3"
+                  ></textarea>
+                </div>
+              </div>
+              <div className="col-md-12">
                 <div class="form-group">
                   <label>
                     File
@@ -165,27 +199,11 @@ const AddSong = () => {
                   </div>
                 </div>
               </div>
-              <div className="col-md-12">
-                <div class="form-group">
-                  <label>
-                    Details
-                    <span class="text-danger">*</span>
-                  </label>
-                  <textarea
-                    value={formData.details}
-                    name="details"
-                    onChange={handalerChanges}
-                    placeholder="Enter hare"
-                    class="form-control"
-                    rows="3"
-                  ></textarea>
-                </div>
-              </div>
             </div>
           </div>
           <div class="widget-footer text-right">
             <button
-              disabled={btnDisabal ? true : false}
+              //disabled={btnDisabal ? true : false}
               onClick={add_subcatagori}
               type="reset"
               class="btn btn-success mr-2"
