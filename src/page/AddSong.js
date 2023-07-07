@@ -21,7 +21,7 @@ const AddSong = () => {
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  console.log("imageData", imageData);
+
   const imageUploading = (e) => {
     let images = e.target.files[0];
     var reader = new FileReader();
@@ -34,7 +34,7 @@ const AddSong = () => {
   const get_categoryList = async () => {
     try {
       const response = await API.get_subCategory();
-      console.log("response", response);
+
       setCatagoriData(response.data.data);
     } catch (error) {}
   };
