@@ -4,6 +4,7 @@ import * as API from "../api/index";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { header } from "../schemas/Validation";
 const initialData = {
   name: "",
   details: "",
@@ -29,7 +30,7 @@ const EditCategoris = () => {
 
   const get_categoryList = async () => {
     try {
-      const response = await API.get_subCategory();
+      const response = await API.get_subCategory(header);
       setCatagoriData(response.data.data);
     } catch (error) {}
   };
@@ -44,7 +45,10 @@ const EditCategoris = () => {
 
   const get_categorisByid = async () => {
     try {
-      const response = await API.subCategoryId_editGet(location.state.id);
+      const response = await API.subCategoryId_editGet(
+        location.state.id,
+        header
+      );
       console.log("response", response);
       setFormData(response.data.data);
     } catch (error) {}
@@ -61,22 +65,22 @@ const EditCategoris = () => {
         id: location.state.id,
       };
       console.log("reqObj", reqObj);
-      //   const response = await API.subCategoryId_edit(reqObj);
-      //   console.log("response", response);
-      //   if (response.data.success === 1) {
-      //     navigate("/categories");
-      //     toast(response.data.msg, {
-      //       position: "top-right",
-      //       autoClose: 5000,
-      //       type: "success",
-      //       hideProgressBar: false,
-      //       closeOnClick: true,
-      //       pauseOnHover: true,
-      //       draggable: true,
-      //       progress: undefined,
-      //       theme: "colored",
-      //     });
-      //   }
+      const response = await API.subCategoryId_edit(reqObj, header);
+      console.log("response", response);
+      if (response.data.success === 1) {
+        navigate("/categories");
+        toast(response.data.msg, {
+          position: "top-right",
+          autoClose: 5000,
+          type: "success",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     } catch (error) {}
   };
 

@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+export const header = localStorage.getItem("_tokenCode");
 export const userSchema = Yup.object({
   name: Yup.string().min(2).max(20).required("Please enter your name"),
   email: Yup.string().email().required("Please enter your email"),

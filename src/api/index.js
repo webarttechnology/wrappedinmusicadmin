@@ -48,73 +48,86 @@ export const user_delete = async (data) => {
   }
 };
 
-export const get_subCategory = async (data) => {
+export const get_subCategory = async (header) => {
   try {
     const url = c.CATAGORIES;
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export const add_subCategory = async (data) => {
+export const add_subCategory = async (data, header) => {
   try {
     const url = c.SUBCATAGORIES;
-    const res = await axios.post(url, data);
+    const res = await axios.post(url, data, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export const getMain_subCategory = async (data) => {
+export const getMain_subCategory = async (header) => {
   try {
     const url = c.SUBCATAGORIES;
-    const res = await axios.get(url, data);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export const subCategoryId = async (data) => {
+export const subCategoryId = async (data, header) => {
   console.log("data", data);
   try {
     const url = c.SUBCATAGORIES + "/categorywise/" + data;
-    console.log("url", url);
-    const res = await axios.get(url, data);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export const subCategoryId_delete = async (data) => {
+export const subCategoryId_delete = async (data, header) => {
   try {
     const url = c.SUBCATAGORIES + "/" + data;
-    const res = await axios.delete(url);
+    const res = await axios.delete(url, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export const subCategoryId_editGet = async (data) => {
+export const subCategoryId_editGet = async (data, header) => {
   try {
     const url = c.SUBCATAGORIES + "/" + data;
     console.log("url", url);
-    const res = await axios.get(url);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export const subCategoryId_edit = async (data) => {
+export const subCategoryId_edit = async (data, header) => {
   try {
     const url = c.SUBCATAGORIES;
-    const res = await axios.patch(url, data);
+    const res = await axios.patch(url, data, {
+      headers: JSON.parse(header),
+    });
     return res;
   } catch (e) {
     return e.response;

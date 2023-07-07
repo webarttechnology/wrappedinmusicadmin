@@ -4,6 +4,7 @@ import * as API from "../api/index";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { header } from "../schemas/Validation";
 const initialData = {
   name: "",
   details: "",
@@ -27,7 +28,7 @@ const AddCategoris = () => {
 
   const get_categoryList = async () => {
     try {
-      const response = await API.get_subCategory();
+      const response = await API.get_subCategory(header);
       console.log("response", response);
       setCatagoriData(response.data.data);
     } catch (error) {}
@@ -47,7 +48,7 @@ const AddCategoris = () => {
         image: imageData,
       };
       console.log("reqObj", reqObj);
-      const response = await API.add_subCategory(reqObj);
+      const response = await API.add_subCategory(reqObj, header);
       console.log("response", response);
       if (response.data.success === 1) {
         navigate("/categories");

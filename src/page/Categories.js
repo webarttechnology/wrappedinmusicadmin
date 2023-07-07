@@ -6,6 +6,7 @@ import * as API from "../api/index";
 import { Edit2 } from "react-feather";
 import { IMG } from "../api/constant";
 import { toast } from "react-toastify";
+import { header } from "../schemas/Validation";
 const Categories = () => {
   const [isActive, setIsActive] = useState(false);
   const [categoriData, setCategoriData] = useState("");
@@ -15,7 +16,7 @@ const Categories = () => {
 
   const get_categoryList = async () => {
     try {
-      const response = await API.get_subCategory();
+      const response = await API.get_subCategory(header);
       console.log("response", response);
       setCatagoriMain(response.data.data);
     } catch (error) {}
@@ -29,7 +30,7 @@ const Categories = () => {
 
   const getAll_subcatagori = async () => {
     try {
-      const response = await API.getMain_subCategory();
+      const response = await API.getMain_subCategory(header);
       console.log("response", response);
       setTableData(response.data.data);
     } catch (error) {}
@@ -39,14 +40,14 @@ const Categories = () => {
     setIsActive(true);
     setCategoriData(categoriId);
     try {
-      const response = await API.subCategoryId(categoriId);
+      const response = await API.subCategoryId(categoriId, header);
       setTableData(response.data.data);
     } catch (error) {}
   };
 
   const userDelete = async (cataId) => {
     try {
-      const response = await API.subCategoryId_delete(cataId);
+      const response = await API.subCategoryId_delete(cataId, header);
       console.log("response", response);
       if (response.data.success === 1) {
         getAll_subcatagori();
@@ -160,7 +161,10 @@ const Categories = () => {
                             <td>{item.name}</td>
                             <td>{item.details}</td>
                             <td>
-                              <img src={IMG + "/" + item.image} />
+                              <img
+                                className="w-25"
+                                src={IMG + "/" + item.image}
+                              />
                             </td>
                             <td>
                               <div className="d-flex justify-content-center">
