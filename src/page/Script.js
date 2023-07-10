@@ -4,7 +4,7 @@ import * as API from "../api/index";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
-const Song = () => {
+const Script = () => {
   const [data, setData] = useState([]);
   const commonDataTable = async () => {
     const header = localStorage.getItem("_tokenCode");
@@ -26,7 +26,7 @@ const Song = () => {
           <div class="widget-heading">
             <div class="row">
               <div class="col-xl-10 col-md-10 col-sm-10 col-12">
-                <h5 class="">List of Music </h5>
+                <h5 class="">List of Script </h5>
               </div>
               <div className="col-md-2 text-lg-right">
                 <Link
@@ -54,7 +54,7 @@ const Song = () => {
                       <div class="th-content">Details</div>
                     </th>
                     <th>
-                      <div class="th-content">File</div>
+                      <div class="th-content">Mood</div>
                     </th>
                     <th>
                       <div class="th-content">Action</div>
@@ -108,4 +108,4 @@ const Song = () => {
   );
 };
 
-export default Song;
+export default Script;

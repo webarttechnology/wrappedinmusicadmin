@@ -1611,6 +1611,7 @@ code {
   margin-right: 0;
   overflow: hidden;
   padding: 12px 12px 40px;
+  overflow-y: scroll;
 }
 #sidebar .ps__thumb-y {
   right: 4px;
@@ -2253,4 +2254,56 @@ input:checked + .slider:before {
 }
 .account-item {
   cursor: pointer;
+}
+.dropdown {
+  background: #fff;
+  position: absolute;
+  box-shadow: 5px 4px 25px #ccc;
+  z-index: 999;
+  padding: 10px 20px;
+  width: 94%;
+  border-radius: 0px 0px 5px 5px;
+}
+.dropdown ul {
+  padding: 0;
+}
+.dropdown ul li {
+  list-style: none;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 10px;
+  align-items: center;
+}
+.dropdown ul li label {
+  cursor: pointer;
+}
+.boxCheck {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #a1a1a1;
+  display: inline-block;
+  border-radius: 3px;
+}
+.dropdown ul li i {
+  font-size: 20px;
+  color: green;
+}
+.dropClose {
+  display: block;
+  text-align: right;
+}
+.dropClose i {
+  color: red;
+  font-size: 20px;
+  position: absolute;
+  top: -13px;
+  background: #fff;
+  right: -5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.musicFile {
+  font-size: 25px;
 }

@@ -91,10 +91,11 @@ const SidBar = () => {
             </li>
             <li class="menu">
               <NavLink
-                to="javascript:void(0);"
+                to="/script-list"
                 id="maps"
-                data-original-title="Settings"
+                data-toggle="tooltip"
                 data-placement="right"
+                title="Script"
                 class="main-item dropdown-toggle bs-tooltip"
               >
                 <i class="las la-cog"></i>

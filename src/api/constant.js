@@ -8,3 +8,4 @@ export const URL = "http://wrappedinmusic.webbersunited.com:3001/api";
 export const SIGNUP = `${URL}/admin`;
 export const CATAGORIES = `${URL}/category`;
 export const SUBCATAGORIES = `${URL}/subcategory`;
+export const SONGS = `${URL}/songs`;

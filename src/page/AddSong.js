@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Select from "react-dropdown-select";
+import { header } from "../schemas/Validation";
 const initialData = {
   name: "",
   category_id: "",
@@ -15,12 +16,27 @@ const initialData = {
 
 const AddSong = () => {
   const navigate = useNavigate();
-  const [values, setValues] = useState("");
+  const [checkBox, setCheckBox] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
   const [searchData, setSearchData] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [dataArry, setDataArry] = useState([]);
+
+  const onChaeckBox = (idData) => {
+    // setCheckBox(!checkBox);
+    // setMoodId(idData);
+    dataArry.includes(idData) == false
+      ? dataArry.push(idData)
+      : delete dataArry[dataArry.indexOf(idData)];
+    console.log("dataArry", dataArry);
+  };
+
+  const focuseHandaler = () => {
+    setIsOpen(true);
+  };
 
   const imageUploading = (e) => {
     let images = e.target.files[0];
@@ -33,8 +49,8 @@ const AddSong = () => {
 
   const get_categoryList = async () => {
     try {
-      const response = await API.get_subCategory();
-
+      const response = await API.get_subCategory(header);
+      console.log("response", response);
       setCatagoriData(response.data.data);
     } catch (error) {}
   };
@@ -42,7 +58,7 @@ const AddSong = () => {
   const handalerChangesCata = async (e) => {
     setCatagoriId(e.target.value);
     try {
-      const response = await API.subCategoryId(e.target.value);
+      const response = await API.subCategoryId(e.target.value, header);
       console.log("responseSSS", response);
       setSearchData(response.data.data);
     } catch (error) {}
@@ -58,17 +74,22 @@ const AddSong = () => {
       const reqObj = {
         name: formData.name,
         category_id: catagoriId,
-        subcategory_id: formData.subcategory_id,
+        subcategory_id: catagoriId === "3" ? dataArry : formData.subcategory_id,
         description: formData.description,
         music_file: imageData,
       };
       console.log("reqObj", reqObj);
-      // const response = await API.add_subCategory(reqObj);
-      // console.log("response", response);
+      const response = await API.add_songs(reqObj, header);
+      console.log("response", response);
       // if (response.data.success === 1) {
       //   navigate("/categories");
       // }
     } catch (error) {}
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    //setSearchData("");
   };
 
   // const btnDisabal = !formData.name || !formData.details || !imageData;
@@ -132,37 +153,51 @@ const AddSong = () => {
                     Sub-category
                     <span class="text-danger">*</span>
                   </label>
-
-                  <select
-                    onChange={handalerChanges}
-                    class="form-control"
-                    name="subcategory_id"
-                    //value={formData.subcategory_id}
-                  >
-                    <option>--- Select ---</option>
-                    {searchData.map((item, index) => (
-                      <option key={index} value={item.id}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="col-md-12">
-                <div class="form-group">
-                  <label>
-                    Description
-                    <span class="text-danger">*</span>
-                  </label>
-                  <textarea
-                    value={formData.description}
-                    name="description"
-                    onChange={handalerChanges}
-                    placeholder="Enter hare"
-                    class="form-control"
-                    rows="3"
-                  ></textarea>
+                  {catagoriId === "3" ? (
+                    <>
+                      <input
+                        type="text"
+                        onFocus={focuseHandaler}
+                        className="form-control"
+                        placeholder="Search Here"
+                      />
+                      {isOpen ? (
+                        <div className="dropdown">
+                          <span className="dropClose" onClick={closeModal}>
+                            <i class="bi bi-x-square"></i>
+                          </span>
+                          <ul>
+                            {searchData.map((item, index) => (
+                              <li key={index}>
+                                <label>
+                                  <input
+                                    type="checkbox"
+                                    onChange={() => onChaeckBox(item.id)}
+                                    className="mr-2"
+                                  />
+                                  {item.name}
+                                </label>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                    </>
+                  ) : (
+                    <select
+                      onChange={handalerChanges}
+                      class="form-control"
+                      name="subcategory_id"
+                      //value={formData.subcategory_id}
+                    >
+                      <option>--- Select ---</option>
+                      {searchData.map((item, index) => (
+                        <option key={index} value={item.id}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
                 </div>
               </div>
               <div className="col-md-12">
@@ -197,6 +232,22 @@ const AddSong = () => {
                       </label>
                     </form>
                   </div>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div class="form-group">
+                  <label>
+                    Description
+                    <span class="text-danger">*</span>
+                  </label>
+                  <textarea
+                    value={formData.description}
+                    name="description"
+                    onChange={handalerChanges}
+                    placeholder="Enter hare"
+                    class="form-control"
+                    rows="3"
+                  ></textarea>
                 </div>
               </div>
             </div>
