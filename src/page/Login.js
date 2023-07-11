@@ -76,12 +76,12 @@ const Login = ({ setIsLogin }) => {
           </div>
           <div class="col-xl-5 col-lg-5 col-md-6">
             <div class="d-flex flex-column justify-content-between h-100 right-area">
-              <a
+              {/* <a
                 class="btn btn-sm w-25 bg-gradient-primary text-white ml-auto"
                 href="#"
               >
                 Sign up
-              </a>
+              </a> */}
               <div>
                 <form onSubmit={handleSubmit}>
                   <div class="login-three-inputs mt-5">

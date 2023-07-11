@@ -80,7 +80,7 @@ const AddSong = () => {
       };
       console.log("reqObj", reqObj);
       const response = await API.moodTagSearchApi(reqObj, header);
-      console.log("response", response);
+      console.log("responseSSSSSS", response);
       if (response.data.success === 1) {
         setSearchData(response.data.data);
       }
@@ -210,7 +210,7 @@ const AddSong = () => {
                                 placeholder="Search Here"
                               />
                               {isOpen ? (
-                                <div className="dropdown">
+                                <div className="dropdownW">
                                   <span
                                     className="dropClose"
                                     onClick={closeModal}

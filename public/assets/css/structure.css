@@ -2255,7 +2255,7 @@ input:checked + .slider:before {
 .account-item {
   cursor: pointer;
 }
-.dropdown {
+.dropdownW {
   background: #fff;
   position: absolute;
   box-shadow: 5px 4px 25px #ccc;
@@ -2264,10 +2264,13 @@ input:checked + .slider:before {
   width: 94%;
   border-radius: 0px 0px 5px 5px;
 }
-.dropdown ul {
+.dropdownW ul {
   padding: 0;
+  height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
-.dropdown ul li {
+.dropdownW ul li {
   list-style: none;
   display: flex;
   cursor: pointer;
@@ -2276,7 +2279,7 @@ input:checked + .slider:before {
   padding-bottom: 10px;
   align-items: center;
 }
-.dropdown ul li label {
+.dropdownW ul li label {
   cursor: pointer;
 }
 .boxCheck {
@@ -2286,7 +2289,7 @@ input:checked + .slider:before {
   display: inline-block;
   border-radius: 3px;
 }
-.dropdown ul li i {
+.dropdownW ul li i {
   font-size: 20px;
   color: green;
 }

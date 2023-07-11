@@ -70,6 +70,21 @@ const AddScript = () => {
     } catch (error) {}
   };
 
+  const moodTegSearch = async (e) => {
+    try {
+      const reqObj = {
+        category_id: catagoriId,
+        search_term: e.target.value,
+      };
+      console.log("reqObj", reqObj);
+      const response = await API.moodTagSearchApi(reqObj, header);
+      console.log("responseSSSSSS", response);
+      if (response.data.success === 1) {
+        setSearchData(response.data.data);
+      }
+    } catch (error) {}
+  };
+
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -186,11 +201,12 @@ const AddScript = () => {
                               <input
                                 type="text"
                                 onFocus={() => setIsOpen(true)}
+                                //onChange={moodTegSearch}
                                 className="form-control"
                                 placeholder="Search Here"
                               />
                               {isOpen ? (
-                                <div className="dropdown">
+                                <div className="dropdownW">
                                   <span
                                     className="dropClose"
                                     onClick={closeModal}
