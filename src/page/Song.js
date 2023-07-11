@@ -4,6 +4,8 @@ import * as API from "../api/index";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
+import { header } from "../schemas/Validation";
+import { toast } from "react-toastify";
 const Song = () => {
   const [data, setData] = useState([]);
   const commonDataTable = async () => {
@@ -12,6 +14,26 @@ const Song = () => {
       const response = await API.song_listing(header);
       console.log("response", response);
       setData(response.data.data);
+    } catch (error) {}
+  };
+
+  const userDelete = async (songId) => {
+    try {
+      const response = await API.song_delete(songId, header);
+      if (response.data.success === 1) {
+        commonDataTable();
+        toast(response.data.msg, {
+          position: "top-right",
+          autoClose: 5000,
+          type: "success",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     } catch (error) {}
   };
 
@@ -57,7 +79,10 @@ const Song = () => {
                       <div class="th-content">Categories</div>
                     </th>
                     <th>
-                      <div class="th-content"> Mood</div>
+                      <div class="th-content">
+                        {" "}
+                        Mood Tag (OR) <br /> Sub-Categories
+                      </div>
                     </th>
                     <th>
                       <div class="th-content">File</div>
@@ -68,52 +93,58 @@ const Song = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((item, index) => (
-                    <tr key={index}>
-                      <td>{index + 1} </td>
-                      <td width="150"> {item.name}</td>
-                      <td width="500">
-                        <p>{item.description}</p>
-                      </td>
-                      <td>{item.Songcategories[0].category.name}</td>
-                      <td>
-                        <ul className="p-0 moodTag">
-                          {item.Songcategories.map((catItem, index) => (
-                            <li key={index}>
-                              {index + 1}) {catItem.subcategory.name}
-                            </li>
-                          ))}
-                        </ul>
-                      </td>
-                      <td>
-                        {item.music_file === "" ? (
-                          "N/A"
-                        ) : item.music_file ? (
-                          <i class="bi bi-music-note-beamed musicFile"></i>
-                        ) : (
-                          ""
-                        )}
-                      </td>
-                      <td>
-                        <div className="d-flex justify-content-center">
-                          <button
-                            type="button"
-                            //onClick={() => userStatus(item.id)}
-                            class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
-                          >
-                            <Edit2 size={20} />
-                          </button>
-                          <button
-                            type="button"
-                            //onClick={() => userDelete(item.id)}
-                            class="align-items-center btn btn-danger d-flex font-20 px-2"
-                          >
-                            <i class="las la-times-circle"></i>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {data.length === 0 ? (
+                    <h4 className="text-center">No Record found</h4>
+                  ) : (
+                    data.map((item, index) => (
+                      <tr key={index}>
+                        <td>{index + 1} </td>
+                        <td width="150"> {item.name}</td>
+                        <td width="400">
+                          <p>{item.description}</p>
+                        </td>
+                        <td width="50">
+                          {item.Songcategories[0].category.name}
+                        </td>
+                        <td width="200">
+                          <ul className="p-0 moodTag">
+                            {item.Songcategories.map((catItem, index) => (
+                              <li key={index}>
+                                {index + 1}) {catItem.subcategory.name}
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+                        <td>
+                          {item.music_file === "" ? (
+                            "N/A"
+                          ) : item.music_file ? (
+                            <i class="bi bi-music-note-beamed musicFile"></i>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                        <td width="80">
+                          <div className="d-flex justify-content-center">
+                            <button
+                              type="button"
+                              //onClick={() => userStatus(item.id)}
+                              class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
+                            >
+                              <Edit2 size={20} />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => userDelete(item.id)}
+                              class="align-items-center btn btn-danger d-flex font-20 px-2"
+                            >
+                              <i class="las la-times-circle"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

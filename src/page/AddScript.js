@@ -17,7 +17,7 @@ const initialData = {
 
 const AddScript = () => {
   const navigate = useNavigate();
-  const [moodTagData, setMoodTagData] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
   const [catagoriId, setCatagoriId] = useState("");
@@ -76,6 +76,7 @@ const AddScript = () => {
   };
 
   const add_subcatagori = async () => {
+    setIsLoading(true);
     const subArry = [];
     subArry.push(formData.subcategory_id);
     console.log("subArry", subArry);
@@ -85,12 +86,12 @@ const AddScript = () => {
         category_id: catagoriId,
         subcategory_id: catagoriId === "3" ? dataArry : subArry,
         description: formData.description,
-        music_file: imageData,
       };
       console.log("reqObj", reqObj);
-      const response = await API.add_songs(reqObj, header);
+      const response = await API.add_script(reqObj, header);
       console.log("response", response);
       if (response.data.success === 1) {
+        setIsLoading(false);
         toast(response.data.msg, {
           position: "top-right",
           autoClose: 5000,
@@ -103,6 +104,8 @@ const AddScript = () => {
           theme: "colored",
         });
         navigate("/script-list");
+      } else {
+        setIsLoading(false);
       }
     } catch (error) {}
   };
@@ -126,7 +129,7 @@ const AddScript = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                <h4>Add Music</h4>
+                <h4>Add Script</h4>
               </div>
             </div>
           </div>
@@ -235,7 +238,7 @@ const AddScript = () => {
                           )}
                         </div>
                       </div>
-                      <div className="col-md-12">
+                      <div className="col-md-12 d-none">
                         <div class="form-group">
                           <label>
                             File
@@ -305,14 +308,19 @@ const AddScript = () => {
             </div>
           </div>
           <div class="widget-footer">
-            <button
-              //disabled={btnDisabal ? true : false}
-              onClick={add_subcatagori}
-              type="reset"
-              class="btn btn-success mr-2"
-            >
-              Submit
-            </button>
+            {isLoading ? (
+              <button disabled type="reset" class="btn btn-info mr-2">
+                Loading...
+              </button>
+            ) : (
+              <button
+                onClick={add_subcatagori}
+                type="reset"
+                class="btn btn-success mr-2"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </div>
       </div>

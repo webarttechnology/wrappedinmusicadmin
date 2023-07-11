@@ -155,3 +155,48 @@ export const song_listing = async (header) => {
     return e.response;
   }
 };
+export const song_delete = async (data, header) => {
+  try {
+    const url = c.SONGS + "/" + data;
+    const res = await axios.delete(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const add_script = async (data, header) => {
+  try {
+    const url = c.GUIDE;
+    const res = await axios.post(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const script_listing = async (header) => {
+  try {
+    const url = c.GUIDE;
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const script_delete = async (data, header) => {
+  try {
+    const url = c.GUIDE + "/" + data;
+    const res = await axios.delete(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

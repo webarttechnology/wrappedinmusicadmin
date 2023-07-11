@@ -17,7 +17,7 @@ const initialData = {
 
 const AddSong = () => {
   const navigate = useNavigate();
-  const [moodTagData, setMoodTagData] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
   const [catagoriId, setCatagoriId] = useState("");
@@ -76,6 +76,7 @@ const AddSong = () => {
   };
 
   const add_subcatagori = async () => {
+    setIsLoading(true);
     const subArry = [];
     subArry.push(formData.subcategory_id);
     console.log("subArry", subArry);
@@ -91,6 +92,7 @@ const AddSong = () => {
       const response = await API.add_songs(reqObj, header);
       console.log("response", response);
       if (response.data.success === 1) {
+        setIsLoading(false);
         toast(response.data.msg, {
           position: "top-right",
           autoClose: 5000,
@@ -103,6 +105,8 @@ const AddSong = () => {
           theme: "colored",
         });
         navigate("/song-list");
+      } else {
+        setIsLoading(false);
       }
     } catch (error) {}
   };
@@ -305,14 +309,19 @@ const AddSong = () => {
             </div>
           </div>
           <div class="widget-footer">
-            <button
-              //disabled={btnDisabal ? true : false}
-              onClick={add_subcatagori}
-              type="reset"
-              class="btn btn-success mr-2"
-            >
-              Submit
-            </button>
+            {isLoading ? (
+              <button disabled type="reset" class="btn btn-info mr-2">
+                Loading...
+              </button>
+            ) : (
+              <button
+                onClick={add_subcatagori}
+                type="reset"
+                class="btn btn-success mr-2"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </div>
       </div>
