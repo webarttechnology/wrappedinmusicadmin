@@ -13,6 +13,8 @@ const initialData = {
   subcategory_id: "2",
   music_file: "",
   description: "",
+  minutes: "",
+  second: "",
 };
 
 const AddSong = () => {
@@ -70,6 +72,21 @@ const AddSong = () => {
     } catch (error) {}
   };
 
+  const moodTegSearch = async (e) => {
+    try {
+      const reqObj = {
+        category_id: catagoriId,
+        search_term: e.target.value,
+      };
+      console.log("reqObj", reqObj);
+      const response = await API.moodTagSearchApi(reqObj, header);
+      console.log("response", response);
+      if (response.data.success === 1) {
+        setSearchData(response.data.data);
+      }
+    } catch (error) {}
+  };
+
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -87,6 +104,7 @@ const AddSong = () => {
         subcategory_id: catagoriId === "3" ? dataArry : subArry,
         description: formData.description,
         music_file: imageData,
+        duration: formData.minutes + ":" + formData.second,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
@@ -187,6 +205,7 @@ const AddSong = () => {
                               <input
                                 type="text"
                                 onFocus={() => setIsOpen(true)}
+                                onChange={moodTegSearch}
                                 className="form-control"
                                 placeholder="Search Here"
                               />
@@ -237,6 +256,38 @@ const AddSong = () => {
                               ))}
                             </select>
                           )}
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div class="form-group">
+                          <label>
+                            Minutes
+                            <span class="text-danger">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter here"
+                            value={formData.minutes}
+                            name="minutes"
+                            onChange={handalerChanges}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div class="form-group">
+                          <label>
+                            Second
+                            <span class="text-danger">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter here"
+                            value={formData.second}
+                            name="second"
+                            onChange={handalerChanges}
+                          />
                         </div>
                       </div>
                       <div className="col-md-12">

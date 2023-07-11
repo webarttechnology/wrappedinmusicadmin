@@ -200,3 +200,15 @@ export const script_delete = async (data, header) => {
     return e.response;
   }
 };
+
+export const moodTagSearchApi = async (data, header) => {
+  try {
+    const url = c.SUBCATAGORIES + "/categorywise-search";
+    const res = await axios.post(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

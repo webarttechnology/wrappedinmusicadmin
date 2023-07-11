@@ -80,7 +80,7 @@ const SidBar = () => {
 
             <li class="menu">
               <NavLink
-                to="transaction.html"
+                to="javascript:void(0);"
                 id="forms"
                 data-original-title="Transactions"
                 data-placement="right"
