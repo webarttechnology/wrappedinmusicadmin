@@ -30,7 +30,7 @@ const Script = () => {
               </div>
               <div className="col-md-2 text-lg-right">
                 <Link
-                  to="/add-music"
+                  to="/add-script"
                   type="button"
                   class="btn btn-success font-20"
                 >

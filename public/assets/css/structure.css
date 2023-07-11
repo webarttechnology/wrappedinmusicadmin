@@ -2307,3 +2307,46 @@ input:checked + .slider:before {
 .musicFile {
   font-size: 25px;
 }
+.normal {
+  width: 100%;
+}
+.borderUS {
+  border-right: 2px solid #ccc;
+}
+.chooesTeg {
+  padding: 0;
+  position: relative;
+}
+.chooesTeg li {
+  cursor: pointer;
+  list-style: none;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 7px #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  background: #2692d1;
+  color: #fff;
+}
+.chooesTeg .dropClose {
+  color: red;
+  font-size: 20px;
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background: #fff;
+  text-align: center;
+  line-height: 35px;
+}
+.chooesTeg .dropClose i {
+  position: initial;
+}
+.moodTag li {
+  list-style: none;
+  display: block;
+  padding-bottom: 10px;
+}

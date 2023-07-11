@@ -54,6 +54,12 @@ const Song = () => {
                       <div class="th-content">Details</div>
                     </th>
                     <th>
+                      <div class="th-content">Categories</div>
+                    </th>
+                    <th>
+                      <div class="th-content"> Mood</div>
+                    </th>
+                    <th>
                       <div class="th-content">File</div>
                     </th>
                     <th>
@@ -65,9 +71,19 @@ const Song = () => {
                   {data.map((item, index) => (
                     <tr key={index}>
                       <td>{index + 1} </td>
-                      <td width="200"> {item.name}</td>
-                      <td width="700">
+                      <td width="150"> {item.name}</td>
+                      <td width="500">
                         <p>{item.description}</p>
+                      </td>
+                      <td>{item.Songcategories[0].category.name}</td>
+                      <td>
+                        <ul className="p-0 moodTag">
+                          {item.Songcategories.map((catItem, index) => (
+                            <li key={index}>
+                              {index + 1}) {catItem.subcategory.name}
+                            </li>
+                          ))}
+                        </ul>
                       </td>
                       <td>
                         {item.music_file === "" ? (

@@ -15,7 +15,7 @@ const initialData = {
   description: "",
 };
 
-const AddSong = () => {
+const AddScript = () => {
   const navigate = useNavigate();
   const [moodTagData, setMoodTagData] = useState("");
   const [formData, setFormData] = useState(initialData);
@@ -102,7 +102,7 @@ const AddSong = () => {
           progress: undefined,
           theme: "colored",
         });
-        navigate("/song-list");
+        navigate("/script-list");
       }
     } catch (error) {}
   };
@@ -320,4 +320,4 @@ const AddSong = () => {
   );
 };
 
-export default AddSong;
+export default AddScript;
