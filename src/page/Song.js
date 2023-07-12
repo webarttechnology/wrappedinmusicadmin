@@ -85,6 +85,9 @@ const Song = () => {
                       </div>
                     </th>
                     <th>
+                      <div class="th-content">Amount</div>
+                    </th>
+                    <th>
                       <div class="th-content">File</div>
                     </th>
                     <th>
@@ -115,6 +118,7 @@ const Song = () => {
                             ))}
                           </ul>
                         </td>
+                        <td>$ {item.amount}</td>
                         <td>
                           {item.music_file === "" ? (
                             "N/A"

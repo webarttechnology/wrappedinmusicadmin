@@ -15,6 +15,7 @@ const initialData = {
   description: "",
   minutes: "",
   second: "",
+  amount: "",
 };
 
 const AddSong = () => {
@@ -89,6 +90,10 @@ const AddSong = () => {
 
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
+    // if (name === "amount") {
+    //   const result = e.target.value.replace(/\D/g, "");
+    //   console.log("result", result);
+    // }
     setFormData({ ...formData, [name]: value });
   };
 
@@ -105,6 +110,7 @@ const AddSong = () => {
         description: formData.description,
         music_file: imageData,
         duration: formData.minutes + ":" + formData.second,
+        amount: formData.amount,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
@@ -256,6 +262,22 @@ const AddSong = () => {
                               ))}
                             </select>
                           )}
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div class="form-group">
+                          <label>
+                            Amount
+                            <span class="text-danger">*</span>
+                          </label>
+                          <input
+                            type="number"
+                            placeholder="Enter Hare"
+                            className="form-control"
+                            value={formData.amount}
+                            name="amount"
+                            onChange={handalerChanges}
+                          />
                         </div>
                       </div>
                       <div className="col-md-6">
