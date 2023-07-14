@@ -212,3 +212,15 @@ export const moodTagSearchApi = async (data, header) => {
     return e.response;
   }
 };
+export const order_data_table = async (data, header) => {
+  try {
+    const url = c.ORDER + "/" + data;
+    console.log("url", url);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

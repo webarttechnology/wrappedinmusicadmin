@@ -2,18 +2,21 @@ import React from "react";
 import * as API from "../api/index";
 import { useEffect } from "react";
 import { useState } from "react";
+import OrderTable from "../components/OrderTable";
+import { header } from "../schemas/Validation";
 const Order = () => {
+  const [comonSataus, setComonSataus] = useState(2);
   const [data, setData] = useState([]);
-  const commonDataTable = async () => {
+  const orderDataTable = async (data) => {
     try {
-      const response = await API.user_listing();
+      const response = await API.order_data_table(data, header);
       console.log("response", response);
       setData(response.data.data);
     } catch (error) {}
   };
 
   useEffect(() => {
-    commonDataTable();
+    orderDataTable(2);
   }, []);
 
   return (
@@ -36,9 +39,22 @@ const Order = () => {
               id="rounded-corner-pills-icon-tab"
               role="tablist"
             >
-              <li class="nav-item ml-2 mr-2">
+              <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(2)}>
                 <a
                   class="nav-link mb-2 active text-center"
+                  id="rounded-corner-pills-icon-home-tab"
+                  data-toggle="pill"
+                  href="#rounded-corner-pills-icon-all"
+                  role="tab"
+                  aria-controls="rounded-corner-pills-icon-home"
+                  aria-selected="true"
+                >
+                  <i class="bi bi-border-style mb-0"></i> All Orders
+                </a>
+              </li>
+              <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(0)}>
+                <a
+                  class="nav-link mb-2 text-center"
                   id="rounded-corner-pills-icon-home-tab"
                   data-toggle="pill"
                   href="#rounded-corner-pills-icon-home"
@@ -46,10 +62,10 @@ const Order = () => {
                   aria-controls="rounded-corner-pills-icon-home"
                   aria-selected="true"
                 >
-                  <i class="las la-shopping-cart"></i> New Orders
+                  <i class="las la-shopping-cart"></i> Pending Orders
                 </a>
               </li>
-              <li class="nav-item ml-2 mr-2">
+              <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(1)}>
                 <a
                   class="nav-link mb-2 text-center"
                   id="rounded-corner-pills-icon-about-tab"
@@ -66,170 +82,19 @@ const Order = () => {
             <div class="tab-content" id="rounded-corner-pills-icon-tabContent">
               <div
                 class="tab-pane fade show active"
+                id="rounded-corner-pills-icon-all"
+                role="tabpanel"
+                aria-labelledby="rounded-corner-pills-icon-home-tab"
+              >
+                <OrderTable title="ALL Order" data={data} />
+              </div>
+              <div
+                class="tab-pane fade show "
                 id="rounded-corner-pills-icon-home"
                 role="tabpanel"
                 aria-labelledby="rounded-corner-pills-icon-home-tab"
               >
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                  <div class="widget ecommerce-table">
-                    <div class="widget-heading">
-                      <h5 class="">List of Songs </h5>
-                    </div>
-                    <div class="widget-content">
-                      <div class="table-responsive text-center">
-                        <table class="table table-hover">
-                          <thead>
-                            <tr>
-                              <th>
-                                <div class="th-content">ID</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Song Title</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Album</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Duration</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Add To Favourites</div>
-                              </th>
-                              <th>
-                                <div class="th-content">More</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Action</div>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>01 </td>
-                              <td>Bloodlust</td>
-                              <td>Dream Your Moments</td>
-                              <td>5:26</td>
-                              <td>
-                                <i class="lar la-heart"></i>
-                              </td>
-                              <td>
-                                <i class="las la-ellipsis-h"></i>
-                              </td>
-                              <td>
-                                <i class="las la-shopping-cart"></i>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <OrderTable title="Pending Order" data={data} />
               </div>
               <div
                 class="tab-pane fade"
@@ -237,63 +102,7 @@ const Order = () => {
                 role="tabpanel"
                 aria-labelledby="rounded-corner-pills-icon-about-tab"
               >
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-                  <div class="widget ecommerce-table">
-                    <div class="widget-heading">
-                      <h5 class="">List of Songs </h5>
-                    </div>
-                    <div class="widget-content">
-                      <div class="table-responsive text-center">
-                        <table class="table table-hover">
-                          <thead>
-                            <tr>
-                              <th>
-                                <div class="th-content">ID</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Song Title</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Album</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Duration</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Add To Favourites</div>
-                              </th>
-                              <th>
-                                <div class="th-content">More</div>
-                              </th>
-                              <th>
-                                <div class="th-content">Action</div>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {data.map((item, index) => (
-                              <tr>
-                                <td>{index + 1} </td>
-                                <td>{item.name}</td>
-                                <td>Dream Your Moments</td>
-                                <td>5:26</td>
-                                <td>
-                                  <i class="lar la-heart"></i>
-                                </td>
-                                <td>
-                                  <i class="las la-ellipsis-h"></i>
-                                </td>
-                                <td>
-                                  <i class="las la-shopping-cart"></i>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <OrderTable title="Completed Order" data={data} />
               </div>
             </div>
           </div>

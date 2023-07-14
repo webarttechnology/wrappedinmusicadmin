@@ -10,3 +10,4 @@ export const CATAGORIES = `${URL}/category`;
 export const SUBCATAGORIES = `${URL}/subcategory`;
 export const SONGS = `${URL}/songs`;
 export const GUIDE = `${URL}/guide`;
+export const ORDER = `${URL}/order`;
