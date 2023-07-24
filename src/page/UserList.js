@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import { Edit2 } from "react-feather";
 import Modal from "react-responsive-modal";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
-const UserList = () => {
+const UserList = ({ setIsLogin }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [userStas, setUserStas] = useState("");
   const [open, setOpen] = useState(false);
@@ -18,6 +20,13 @@ const UserList = () => {
       const response = await API.user_listing(header);
       console.log("response", response);
       setData(response.data.data);
+      if (response.data.is_login === false) {
+        localStorage.removeItem("isLogin");
+        setIsLogin(localStorage.removeItem("isLogin"));
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/");
+        }
+      }
     } catch (error) {}
   };
 

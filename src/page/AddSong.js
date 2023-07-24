@@ -30,7 +30,9 @@ const AddSong = () => {
   const [dataArry, setDataArry] = useState([]);
   const [moodArry, setMoodArry] = useState([]);
   const [tagArry, setTagArry] = useState([]);
-
+  const [songThumb, setSongThumb] = useState("");
+  console.log("imageData", imageData);
+  console.log("songThumb", songThumb);
   const onChaeckBox = async (idData, moodTag) => {
     moodArry.includes(moodTag) == false
       ? moodArry.push(moodTag)
@@ -52,6 +54,15 @@ const AddSong = () => {
     var reader = new FileReader();
     reader.onloadend = function () {
       setImageData(reader.result);
+    };
+    reader.readAsDataURL(images);
+  };
+
+  const imageUploadingThum = (e) => {
+    let images = e.target.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      setSongThumb(reader.result);
     };
     reader.readAsDataURL(images);
   };
@@ -90,10 +101,6 @@ const AddSong = () => {
 
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
-    // if (name === "amount") {
-    //   const result = e.target.value.replace(/\D/g, "");
-    //   console.log("result", result);
-    // }
     setFormData({ ...formData, [name]: value });
   };
 
@@ -111,6 +118,7 @@ const AddSong = () => {
         music_file: imageData,
         duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
+        image: songThumb,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
@@ -140,13 +148,20 @@ const AddSong = () => {
     //setSearchData("");
   };
 
-  // const btnDisabal = !formData.name || !formData.details || !imageData;
+  const btnDisabal =
+    !formData.name ||
+    !catagoriId ||
+    !imageData ||
+    !songThumb ||
+    !formData.description ||
+    !formData.minutes ||
+    !formData.second ||
+    !formData.amount;
 
   useEffect(() => {
     get_categoryList();
   }, []);
 
-  console.log(tagArry);
   return (
     <>
       <div class="col-lg-12 layout-spacing">
@@ -312,10 +327,49 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-12">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            File
+                            Music File
+                            <span class="text-danger">*</span>
+                          </label>
+                          <div id="dropzone">
+                            <form
+                              encType="multipart/form-data"
+                              action="/upload"
+                              class="dropzone needsclick dz-clickable"
+                            >
+                              <label
+                                for="fileT"
+                                className="dz-message needsclick"
+                              >
+                                <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                <form encType="multipart/form-data">
+                                  <span class="dz-button">
+                                    Upload MP3 files here.
+                                  </span>
+                                  <br />
+                                  <span class="note needsclick">
+                                    (This is a Uploadzone. Browse your files)
+                                  </span>
+
+                                  <input
+                                    hidden
+                                    id="fileT"
+                                    type="file"
+                                    onChange={imageUploading}
+                                    class="image-preview-filepond"
+                                  />
+                                </form>
+                              </label>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div class="form-group">
+                          <label>
+                            Music thumbnail
                             <span class="text-danger">*</span>
                           </label>
                           <div id="dropzone">
@@ -342,7 +396,7 @@ const AddSong = () => {
                                     hidden
                                     id="file"
                                     type="file"
-                                    onChange={imageUploading}
+                                    onChange={imageUploadingThum}
                                     class="image-preview-filepond"
                                   />
                                 </form>
@@ -388,6 +442,7 @@ const AddSong = () => {
               </button>
             ) : (
               <button
+                disabled={btnDisabal ? true : false}
                 onClick={add_subcatagori}
                 type="reset"
                 class="btn btn-success mr-2"

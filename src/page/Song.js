@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { header } from "../schemas/Validation";
 import { toast } from "react-toastify";
+import { IMG } from "../api/constant";
 const Song = () => {
   const [data, setData] = useState([]);
   const commonDataTable = async () => {
@@ -91,6 +92,9 @@ const Song = () => {
                       <div class="th-content">File</div>
                     </th>
                     <th>
+                      <div class="th-content">Thumbnail</div>
+                    </th>
+                    <th>
                       <div class="th-content">Action</div>
                     </th>
                   </tr>
@@ -127,6 +131,9 @@ const Song = () => {
                           ) : (
                             ""
                           )}
+                        </td>
+                        <td>
+                          <img className="w-50" src={IMG + item.image} />
                         </td>
                         <td width="80">
                           <div className="d-flex justify-content-center">

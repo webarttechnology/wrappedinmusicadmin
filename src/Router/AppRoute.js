@@ -35,7 +35,10 @@ const AppRoute = () => {
                   <Route path="/" element={<Base />} />
                   <Route path="/dashboard" element={<Base />} />
                   <Route path="/order" element={<Order />} />
-                  <Route path="/user" element={<UserList />} />
+                  <Route
+                    path="/user"
+                    element={<UserList setIsLogin={setIsLogin} />}
+                  />
                   <Route path="/categories" element={<Categories />} />
                   <Route path="/add-categories" element={<AddCategoris />} />
                   <Route path="/song-list" element={<Song />} />
