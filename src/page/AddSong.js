@@ -26,13 +26,13 @@ const AddSong = () => {
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
   const [searchData, setSearchData] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(0);
   const [dataArry, setDataArry] = useState([]);
   const [moodArry, setMoodArry] = useState([]);
   const [tagArry, setTagArry] = useState([]);
   const [songThumb, setSongThumb] = useState("");
-  console.log("imageData", imageData);
-  console.log("songThumb", songThumb);
+  console.log("isOpen", isOpen);
+
   const onChaeckBox = async (idData, moodTag) => {
     moodArry.includes(moodTag) == false
       ? moodArry.push(moodTag)
@@ -84,6 +84,22 @@ const AddSong = () => {
     } catch (error) {}
   };
 
+  const catagoriY = async (data) => {
+    if (data === "1") {
+      setIsOpen("1");
+      setCatagoriId(data);
+    } else if (data === "2") {
+      setIsOpen("2");
+    } else if (data === "3") {
+      setIsOpen("3");
+    }
+    try {
+      const response = await API.subCategoryId(data, header);
+      console.log("responseSSS", response);
+      setSearchData(response.data.data);
+    } catch (error) {}
+  };
+
   const moodTegSearch = async (e) => {
     try {
       const reqObj = {
@@ -92,7 +108,6 @@ const AddSong = () => {
       };
       console.log("reqObj", reqObj);
       const response = await API.moodTagSearchApi(reqObj, header);
-      console.log("responseSSSSSS", response);
       if (response.data.success === 1) {
         setSearchData(response.data.data);
       }
@@ -179,7 +194,7 @@ const AddSong = () => {
                 <div className="row">
                   <div className="col-md-9">
                     <div className="row borderUS">
-                      <div className="col-md-6">
+                      <div className="col-md-12">
                         <div class="form-group">
                           <label>
                             Title
@@ -198,87 +213,149 @@ const AddSong = () => {
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Choose category
+                            Choose Genre
                             <span class="text-danger">*</span>
                           </label>
-                          <select
-                            onChange={handalerChangesCata}
-                            class="form-control"
-                            name="category_id"
-                          >
-                            <option>--- Select ---</option>
-                            {catagoriData.map((item, index) => (
-                              <option key={index} value={item.id}>
-                                {item.name}
-                              </option>
-                            ))}
-                          </select>
+                          <>
+                            <input
+                              type="text"
+                              onFocus={() => catagoriY("1")}
+                              onChange={moodTegSearch}
+                              className="form-control"
+                              placeholder="Search Genre"
+                            />
+                            {isOpen === "1" ? (
+                              <div className="dropdownW">
+                                <span
+                                  className="dropClose"
+                                  onClick={closeModal}
+                                >
+                                  <i class="bi bi-x-square"></i>
+                                </span>
+                                <ul>
+                                  {searchData.map((item, index) => (
+                                    <li key={index}>
+                                      <label>
+                                        <input
+                                          type="checkbox"
+                                          defaultChecked={
+                                            dataArry.includes(item.id)
+                                              ? true
+                                              : false
+                                          }
+                                          onChange={() =>
+                                            onChaeckBox(item.id, item.name)
+                                          }
+                                          className="mr-2"
+                                        />
+                                        {item.name}
+                                      </label>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ) : null}
+                          </>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Sub-category
+                            Choose Occasion
                             <span class="text-danger">*</span>
                           </label>
-                          {catagoriId === "3" ? (
-                            <>
-                              <input
-                                type="text"
-                                onFocus={() => setIsOpen(true)}
-                                onChange={moodTegSearch}
-                                className="form-control"
-                                placeholder="Search Here"
-                              />
-                              {isOpen ? (
-                                <div className="dropdownW">
-                                  <span
-                                    className="dropClose"
-                                    onClick={closeModal}
-                                  >
-                                    <i class="bi bi-x-square"></i>
-                                  </span>
-                                  <ul>
-                                    {searchData.map((item, index) => (
-                                      <li key={index}>
-                                        <label>
-                                          <input
-                                            type="checkbox"
-                                            defaultChecked={
-                                              dataArry.includes(item.id)
-                                                ? true
-                                                : false
-                                            }
-                                            onChange={() =>
-                                              onChaeckBox(item.id, item.name)
-                                            }
-                                            className="mr-2"
-                                          />
-                                          {item.name}
-                                        </label>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              ) : null}
-                            </>
-                          ) : (
-                            <select
-                              onChange={handalerChanges}
-                              class="form-control"
-                              name="subcategory_id"
-                              //value={formData.subcategory_id}
-                            >
-                              <option>--- Select ---</option>
-                              {searchData.map((item, index) => (
-                                <option key={index} value={item.id}>
-                                  {item.name}
-                                </option>
-                              ))}
-                            </select>
-                          )}
+
+                          <>
+                            <input
+                              type="text"
+                              onFocus={() => catagoriY("2")}
+                              onChange={moodTegSearch}
+                              className="form-control"
+                              placeholder="Search Occasion"
+                            />
+                            {isOpen === "2" ? (
+                              <div className="dropdownW">
+                                <span
+                                  className="dropClose"
+                                  onClick={closeModal}
+                                >
+                                  <i class="bi bi-x-square"></i>
+                                </span>
+                                <ul>
+                                  {searchData.map((item, index) => (
+                                    <li key={index}>
+                                      <label>
+                                        <input
+                                          type="checkbox"
+                                          defaultChecked={
+                                            dataArry.includes(item.id)
+                                              ? true
+                                              : false
+                                          }
+                                          onChange={() =>
+                                            onChaeckBox(item.id, item.name)
+                                          }
+                                          className="mr-2"
+                                        />
+                                        {item.name}
+                                      </label>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ) : null}
+                          </>
                         </div>
                       </div>
+                      <div className="col-md-6">
+                        <div class="form-group">
+                          <label>
+                            Choose Mood
+                            <span class="text-danger">*</span>
+                          </label>
+                          <>
+                            <input
+                              type="text"
+                              onFocus={() => catagoriY("3")}
+                              onChange={moodTegSearch}
+                              className="form-control"
+                              placeholder="Search Mood"
+                            />
+                            {isOpen === "3" ? (
+                              <div className="dropdownW">
+                                <span
+                                  className="dropClose"
+                                  onClick={closeModal}
+                                >
+                                  <i class="bi bi-x-square"></i>
+                                </span>
+                                <ul>
+                                  {searchData.map((item, index) => (
+                                    <li key={index}>
+                                      <label>
+                                        <input
+                                          type="checkbox"
+                                          defaultChecked={
+                                            dataArry.includes(item.id)
+                                              ? true
+                                              : false
+                                          }
+                                          onChange={() =>
+                                            onChaeckBox(item.id, item.name)
+                                          }
+                                          className="mr-2"
+                                        />
+                                        {item.name}
+                                      </label>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            ) : null}
+                          </>
+                        </div>
+                      </div>
+
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
@@ -424,7 +501,7 @@ const AddSong = () => {
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <h6>Mood Tag</h6>
+                    <h6>Added Tag</h6>
                     <ul className="chooesTeg">
                       {tagArry.map((item, key) => {
                         return <li key={key}>{item}</li>;
