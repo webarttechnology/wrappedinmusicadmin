@@ -49,7 +49,6 @@ export const user_delete = async (data) => {
 };
 
 export const get_subCategory = async (header) => {
-  console.log("header", header);
   try {
     const url = c.CATAGORIES;
     const res = await axios.get(url, {
@@ -74,7 +73,6 @@ export const add_subCategory = async (data, header) => {
 };
 
 export const getMain_subCategory = async (header) => {
-  console.log("header", header);
   try {
     const url = c.SUBCATAGORIES;
     const res = await axios.get(url, {
@@ -87,7 +85,6 @@ export const getMain_subCategory = async (header) => {
 };
 
 export const subCategoryId = async (data, header) => {
-  console.log("data", data);
   try {
     const url = c.SUBCATAGORIES + "/categorywise/" + data;
     const res = await axios.get(url, {

@@ -77,13 +77,13 @@ const Song = () => {
                       <div class="th-content">Details</div>
                     </th>
                     <th>
-                      <div class="th-content">Categories</div>
+                      <div class="th-content">Genre</div>
                     </th>
                     <th>
-                      <div class="th-content">
-                        {" "}
-                        Mood Tag (OR) <br /> Sub-Categories
-                      </div>
+                      <div class="th-content">Occasion</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Mood</div>
                     </th>
                     <th>
                       <div class="th-content">Amount</div>
@@ -111,7 +111,26 @@ const Song = () => {
                           <p>{item.description}</p>
                         </td>
                         <td width="50">
-                          {item.Songcategories[0].category.name}
+                          {item.Songcategories[0].category.name === "Genre" ? (
+                            <ul className="p-0 moodTag">
+                              {item.Songcategories.map((catItem, index) => (
+                                <li key={index}>
+                                  {index + 1}) {catItem.subcategory.name}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : undefined}
+                        </td>
+                        <td width="50">
+                          {item.Songcategories[0].category.name === "Genre" ? (
+                            <ul className="p-0 moodTag">
+                              {item.Songcategories.map((catItem, index) => (
+                                <li key={index}>
+                                  {index + 1}) {catItem.subcategory.name}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : undefined}
                         </td>
                         <td width="200">
                           <ul className="p-0 moodTag">

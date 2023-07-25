@@ -7,6 +7,7 @@ import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Select from "react-dropdown-select";
 import { header } from "../schemas/Validation";
 import { toast } from "react-toastify";
+import { CheckCircle } from "react-feather";
 const initialData = {
   name: "",
   category_id: "",
@@ -26,10 +27,21 @@ const AddSong = () => {
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
   const [searchData, setSearchData] = useState([]);
+  const [searchData2, setSearchData2] = useState([]);
+  const [searchData3, setSearchData3] = useState([]);
   const [isOpen, setIsOpen] = useState(0);
   const [dataArry, setDataArry] = useState([]);
   const [moodArry, setMoodArry] = useState([]);
   const [tagArry, setTagArry] = useState([]);
+
+  const [dataArry2, setDataArry2] = useState([]);
+  const [moodArry2, setMoodArry2] = useState([]);
+  const [tagArry2, setTagArry2] = useState([]);
+
+  const [dataArry3, setDataArry3] = useState([]);
+  const [moodArry3, setMoodArry3] = useState([]);
+  const [tagArry3, setTagArry3] = useState([]);
+
   const [songThumb, setSongThumb] = useState("");
 
   const onChaeckBox = async (idData, moodTag) => {
@@ -41,11 +53,28 @@ const AddSong = () => {
     dataArry.includes(idData) == false
       ? dataArry.push(idData)
       : delete dataArry[dataArry.indexOf(idData)];
-    console.log("dataArry", dataArry);
   };
 
-  const focuseHandaler = () => {
-    setIsOpen(true);
+  const onChaeckBox2 = async (idData, moodTag) => {
+    moodArry2.includes(moodTag) == false
+      ? moodArry2.push(moodTag)
+      : delete moodArry2[moodArry2.indexOf(moodTag)];
+    setTagArry2(moodArry2);
+    setIsOpen(false);
+    dataArry2.includes(idData) == false
+      ? dataArry2.push(idData)
+      : delete dataArry2[dataArry2.indexOf(idData)];
+  };
+
+  const onChaeckBox3 = async (idData, moodTag) => {
+    moodArry3.includes(moodTag) == false
+      ? moodArry3.push(moodTag)
+      : delete moodArry3[moodArry3.indexOf(moodTag)];
+    setTagArry3(moodArry3);
+    setIsOpen(false);
+    dataArry3.includes(idData) == false
+      ? dataArry3.push(idData)
+      : delete dataArry3[dataArry3.indexOf(idData)];
   };
 
   const imageUploading = (e) => {
@@ -88,16 +117,25 @@ const AddSong = () => {
     if (data === "1") {
       setIsOpen("1");
       setCatagoriId(data);
+      try {
+        const response = await API.subCategoryId(data, header);
+        setSearchData(response.data.data);
+      } catch (error) {}
     } else if (data === "2") {
       setIsOpen("2");
+      setCatagoriId(data);
+      try {
+        const response = await API.subCategoryId(data, header);
+        setSearchData2(response.data.data);
+      } catch (error) {}
     } else if (data === "3") {
       setIsOpen("3");
+      setCatagoriId(data);
+      try {
+        const response = await API.subCategoryId(data, header);
+        setSearchData3(response.data.data);
+      } catch (error) {}
     }
-    try {
-      const response = await API.subCategoryId(data, header);
-      console.log("responseSSS", response);
-      setSearchData(response.data.data);
-    } catch (error) {}
   };
 
   const moodTegSearch = async (e) => {
@@ -106,7 +144,6 @@ const AddSong = () => {
         category_id: catagoriId,
         search_term: e.target.value,
       };
-      console.log("reqObj", reqObj);
       const response = await API.moodTagSearchApi(reqObj, header);
       if (response.data.success === 1) {
         setSearchData(response.data.data);
@@ -123,12 +160,12 @@ const AddSong = () => {
     setIsLoading(true);
     const subArry = [];
     subArry.push(formData.subcategory_id);
-    console.log("subArry", subArry);
     try {
       const reqObj = {
         name: formData.name,
-        category_id: catagoriId,
-        subcategory_id: catagoriId === "3" ? dataArry : subArry,
+        mood: dataArry,
+        occasion: dataArry2,
+        genre: dataArry3,
         description: formData.description,
         music_file: imageData,
         duration: formData.minutes + ":" + formData.second,
@@ -165,13 +202,15 @@ const AddSong = () => {
 
   const btnDisabal =
     !formData.name ||
-    !catagoriId ||
     !imageData ||
     !songThumb ||
     !formData.description ||
     !formData.minutes ||
     !formData.second ||
-    !formData.amount;
+    !formData.amount ||
+    !dataArry ||
+    !dataArry2 ||
+    !dataArry3;
 
   useEffect(() => {
     get_categoryList();
@@ -282,18 +321,18 @@ const AddSong = () => {
                                   <i class="bi bi-x-square"></i>
                                 </span>
                                 <ul>
-                                  {searchData.map((item, index) => (
+                                  {searchData2.map((item, index) => (
                                     <li key={index}>
                                       <label>
                                         <input
                                           type="checkbox"
                                           defaultChecked={
-                                            dataArry.includes(item.id)
+                                            dataArry2.includes(item.id)
                                               ? true
                                               : false
                                           }
                                           onChange={() =>
-                                            onChaeckBox(item.id, item.name)
+                                            onChaeckBox2(item.id, item.name)
                                           }
                                           className="mr-2"
                                         />
@@ -330,18 +369,18 @@ const AddSong = () => {
                                   <i class="bi bi-x-square"></i>
                                 </span>
                                 <ul>
-                                  {searchData.map((item, index) => (
+                                  {searchData3.map((item, index) => (
                                     <li key={index}>
                                       <label>
                                         <input
                                           type="checkbox"
                                           defaultChecked={
-                                            dataArry.includes(item.id)
+                                            dataArry3.includes(item.id)
                                               ? true
                                               : false
                                           }
                                           onChange={() =>
-                                            onChaeckBox(item.id, item.name)
+                                            onChaeckBox3(item.id, item.name)
                                           }
                                           className="mr-2"
                                         />
@@ -422,8 +461,24 @@ const AddSong = () => {
                               >
                                 <div class="icon dripicons dripicons-browser-upload"></div>{" "}
                                 <form encType="multipart/form-data">
-                                  <span class="dz-button">
-                                    Upload MP3 files here.
+                                  <span
+                                    class={
+                                      imageData
+                                        ? "dz-button text-success"
+                                        : "dz-button"
+                                    }
+                                  >
+                                    {imageData ? (
+                                      <span className="d-inline-block mr-2">
+                                        <CheckCircle color="green" size="30" />
+                                      </span>
+                                    ) : (
+                                      ""
+                                    )}
+                                    {imageData
+                                      ? "File Uploaded successfully"
+                                      : "Upload MP3 files here"}
+                                    .
                                   </span>
                                   <br />
                                   <span class="note needsclick">
@@ -461,8 +516,24 @@ const AddSong = () => {
                               >
                                 <div class="icon dripicons dripicons-browser-upload"></div>{" "}
                                 <form encType="multipart/form-data">
-                                  <span class="dz-button">
-                                    Upload files here.
+                                  <span
+                                    class={
+                                      songThumb
+                                        ? "dz-button text-success"
+                                        : "dz-button"
+                                    }
+                                  >
+                                    {songThumb ? (
+                                      <span className="d-inline-block mr-2">
+                                        <CheckCircle color="green" size="30" />
+                                      </span>
+                                    ) : (
+                                      ""
+                                    )}
+
+                                    {songThumb
+                                      ? "File Uploaded successfully"
+                                      : "Upload thumbnail files here"}
                                   </span>
                                   <br />
                                   <span class="note needsclick">
@@ -501,9 +572,21 @@ const AddSong = () => {
                     </div>
                   </div>
                   <div className="col-md-3">
-                    <h6>Added Tag</h6>
+                    <h6>Genre Tag</h6>
                     <ul className="chooesTeg">
                       {tagArry.map((item, key) => {
+                        return <li key={key}>{item}</li>;
+                      })}
+                    </ul>
+                    <h6>Occasion Tag</h6>
+                    <ul className="chooesTeg">
+                      {tagArry2.map((item, key) => {
+                        return <li key={key}>{item}</li>;
+                      })}
+                    </ul>
+                    <h6>Mood Tag</h6>
+                    <ul className="chooesTeg">
+                      {tagArry3.map((item, key) => {
                         return <li key={key}>{item}</li>;
                       })}
                     </ul>

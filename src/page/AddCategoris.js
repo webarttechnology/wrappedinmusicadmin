@@ -4,7 +4,7 @@ import * as API from "../api/index";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { header } from "../schemas/Validation";
+import { MESSAGE, header } from "../schemas/Validation";
 const initialData = {
   name: "",
   details: "",
@@ -52,17 +52,9 @@ const AddCategoris = () => {
       console.log("response", response);
       if (response.data.success === 1) {
         navigate("/categories");
-        toast(response.data.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          type: "success",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        MESSAGE(response.data.msg, 1);
+      } else {
+        MESSAGE(response.data.msg);
       }
     } catch (error) {}
   };
