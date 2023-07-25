@@ -31,7 +31,6 @@ const AddSong = () => {
   const [moodArry, setMoodArry] = useState([]);
   const [tagArry, setTagArry] = useState([]);
   const [songThumb, setSongThumb] = useState("");
-  console.log("isOpen", isOpen);
 
   const onChaeckBox = async (idData, moodTag) => {
     moodArry.includes(moodTag) == false
@@ -85,6 +84,7 @@ const AddSong = () => {
   };
 
   const catagoriY = async (data) => {
+    const header = localStorage.getItem("_tokenCode");
     if (data === "1") {
       setIsOpen("1");
       setCatagoriId(data);

@@ -15,6 +15,7 @@ const Categories = () => {
   const [tableData, setTableData] = useState([]);
 
   const get_categoryList = async () => {
+    const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.get_subCategory(header);
       console.log("response", response);
@@ -29,6 +30,7 @@ const Categories = () => {
   };
 
   const getAll_subcatagori = async () => {
+    const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.getMain_subCategory(header);
       console.log("response", response);
@@ -37,6 +39,7 @@ const Categories = () => {
   };
 
   const categoriy_details = async (categoriId) => {
+    const header = localStorage.getItem("_tokenCode");
     setIsActive(true);
     setCategoriData(categoriId);
     try {
@@ -46,6 +49,7 @@ const Categories = () => {
   };
 
   const userDelete = async (cataId) => {
+    const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.subCategoryId_delete(cataId, header);
       console.log("response", response);
