@@ -143,7 +143,19 @@ export const add_songs = async (data, header) => {
     return e.response;
   }
 };
-export const song_listing = async (header) => {
+export const song_listing = async (data, header) => {
+  try {
+    const url = c.SONGS + "/" + data;
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const song_catagoriId = async (header) => {
   try {
     const url = c.SONGS;
     const res = await axios.get(url, {
@@ -154,6 +166,7 @@ export const song_listing = async (header) => {
     return e.response;
   }
 };
+
 export const song_delete = async (data, header) => {
   try {
     const url = c.SONGS + "/" + data;
