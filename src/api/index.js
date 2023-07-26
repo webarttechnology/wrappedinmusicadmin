@@ -143,9 +143,9 @@ export const add_songs = async (data, header) => {
     return e.response;
   }
 };
-export const song_listing = async (data, header) => {
+export const song_listing = async (header) => {
   try {
-    const url = c.SONGS + "/" + data;
+    const url = c.SONGS;
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });

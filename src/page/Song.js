@@ -35,6 +35,7 @@ const Song = () => {
   const userDelete = async (songId) => {
     try {
       const response = await API.song_delete(songId, header);
+      console.log("response", response);
       if (response.data.success === 1) {
         commonDataTable();
         toast(response.data.msg, {
@@ -77,88 +78,135 @@ const Song = () => {
             </div>
           </div>
           <div class="widget-content">
-            <ul
-              class="nav nav-pills mb-4 mt-3  justify-content-center"
-              id="rounded-corner-pills-icon-tab"
-              role="tablist"
-            >
-              <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(1)}>
-                <a
-                  class="nav-link mb-2 active text-center"
-                  id="rounded-corner-pills-icon-home-tab"
-                  data-toggle="pill"
-                  href="#rounded-corner-pills-icon-all"
-                  role="tab"
-                  aria-controls="rounded-corner-pills-icon-home"
-                  aria-selected="true"
-                >
-                  <i class="bi bi-border-style mb-0"></i> All Orders
-                </a>
-              </li>
-              <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(2)}>
-                <a
-                  class="nav-link mb-2 text-center"
-                  id="rounded-corner-pills-icon-home-tab"
-                  data-toggle="pill"
-                  href="#rounded-corner-pills-icon-home"
-                  role="tab"
-                  aria-controls="rounded-corner-pills-icon-home"
-                  aria-selected="true"
-                >
-                  <i class="las la-shopping-cart"></i> Pending Orders
-                </a>
-              </li>
-              <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(3)}>
-                <a
-                  class="nav-link mb-2 text-center"
-                  id="rounded-corner-pills-icon-about-tab"
-                  data-toggle="pill"
-                  href="#rounded-corner-pills-icon-about"
-                  role="tab"
-                  aria-controls="rounded-corner-pills-icon-about"
-                  aria-selected="false"
-                >
-                  <i class="las la-check"></i> Completed Orders
-                </a>
-              </li>
-            </ul>
-            <div class="tab-content" id="rounded-corner-pills-icon-tabContent">
-              <div
-                class="tab-pane fade show active"
-                id="rounded-corner-pills-icon-all"
-                role="tabpanel"
-                aria-labelledby="rounded-corner-pills-icon-home-tab"
-              >
-                <Songtable
-                  title="ALL Order"
-                  userDelete={userDelete}
-                  data={data}
-                />
-              </div>
-              <div
-                class="tab-pane fade show "
-                id="rounded-corner-pills-icon-home"
-                role="tabpanel"
-                aria-labelledby="rounded-corner-pills-icon-home-tab"
-              >
-                <Songtable
-                  title="ALL Order"
-                  userDelete={userDelete}
-                  data={data}
-                />
-              </div>
-              <div
-                class="tab-pane fade"
-                id="rounded-corner-pills-icon-about"
-                role="tabpanel"
-                aria-labelledby="rounded-corner-pills-icon-about-tab"
-              >
-                <Songtable
-                  title="ALL Order"
-                  userDelete={userDelete}
-                  data={data}
-                />
-              </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th-content">ID</div>
+                    </th>
+                    <th>
+                      <div class="th-content"> Title</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Details</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Genre</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Occasion</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Mood</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Amount</div>
+                    </th>
+                    <th>
+                      <div class="th-content">File</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Thumbnail</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Action</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.length === 0 ? (
+                    <h4 className="text-center">No Record found</h4>
+                  ) : (
+                    data.map((item, index) => (
+                      <tr key={index}>
+                        <td>{index + 1} </td>
+                        <td width="150"> {item.name}</td>
+                        <td width="400">
+                          <p>{item.description}</p>
+                        </td>
+                        <td width="200">
+                          <ul className="p-0 moodTag">
+                            {item.genere.length === 0 ? (
+                              "N/A"
+                            ) : (
+                              <>
+                                {item.genere.map((catItem, index) => (
+                                  <li key={index}>
+                                    {index + 1}) {catItem.subcategory.name}
+                                  </li>
+                                ))}
+                              </>
+                            )}
+                          </ul>
+                        </td>
+
+                        <td width="200">
+                          <ul className="p-0 moodTag">
+                            {item.occation.length === 0 ? (
+                              "N/A "
+                            ) : (
+                              <>
+                                {item.occation.map((catItem, index) => (
+                                  <li key={index}>
+                                    {index + 1}) {catItem.subcategory.name}
+                                  </li>
+                                ))}
+                              </>
+                            )}
+                          </ul>
+                        </td>
+                        <td width="200">
+                          <ul className="p-0 moodTag">
+                            {item.mood.length === 0 ? (
+                              "N/A"
+                            ) : (
+                              <>
+                                {item.mood.map((catItem, index) => (
+                                  <li key={index}>
+                                    {index + 1}) {catItem.subcategory.name}
+                                  </li>
+                                ))}
+                              </>
+                            )}
+                          </ul>
+                        </td>
+                        <td>$ {item.amount}</td>
+                        <td>
+                          {item.music_file === "" ? (
+                            "N/A"
+                          ) : item.music_file ? (
+                            <i class="bi bi-music-note-beamed musicFile"></i>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                        <td>
+                          <img className="w-75" src={IMG + item.image} />
+                        </td>
+                        <td width="80">
+                          <div className="d-flex justify-content-center">
+                            <button
+                              type="button"
+                              //onClick={() => userStatus(item.id)}
+                              class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
+                            >
+                              <Edit2 size={20} />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => userDelete(item.id)}
+                              class="align-items-center btn btn-danger d-flex font-20 px-2"
+                            >
+                              <i class="las la-times-circle"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
