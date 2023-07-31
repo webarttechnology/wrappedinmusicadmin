@@ -34,16 +34,28 @@ const AppRoute = () => {
                 <Routes>
                   <Route path="/" element={<Base />} />
                   <Route path="/dashboard" element={<Base />} />
-                  <Route path="/order" element={<Order />} />
+                  <Route
+                    path="/order"
+                    element={<Order setIsLogin={setIsLogin} />}
+                  />
                   <Route
                     path="/user"
                     element={<UserList setIsLogin={setIsLogin} />}
                   />
-                  <Route path="/categories" element={<Categories />} />
+                  <Route
+                    path="/categories"
+                    element={<Categories setIsLogin={setIsLogin} />}
+                  />
                   <Route path="/add-categories" element={<AddCategoris />} />
-                  <Route path="/song-list" element={<Song />} />
+                  <Route
+                    path="/song-list"
+                    element={<Song setIsLogin={setIsLogin} />}
+                  />
                   <Route path="/add-music" element={<AddSong />} />
-                  <Route path="/script-list" element={<Script />} />
+                  <Route
+                    path="/script-list"
+                    element={<Script setIsLogin={setIsLogin} />}
+                  />
                   <Route path="/add-script" element={<AddScript />} />
 
                   <Route path="/edit-categories" element={<EditCategoris />} />

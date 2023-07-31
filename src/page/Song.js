@@ -1,14 +1,15 @@
 import React from "react";
 import { Edit2 } from "react-feather";
 import * as API from "../api/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { header } from "../schemas/Validation";
 import { toast } from "react-toastify";
 import { IMG } from "../api/constant";
 import Songtable from "./Songtable";
-const Song = () => {
+const Song = ({ setIsLogin }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
 
   const orderDataTable = async (data) => {
@@ -25,10 +26,13 @@ const Song = () => {
       const response = await API.song_listing(header);
       console.log("songList", response);
       setData(response.data.data);
-      // response.data.data.map(async (item, index) => {
-      //   const songResponse = await API.song_catagoriId(item.id, header);
-      //   console.log("songResponse", songResponse);
-      // });
+      if (response.data.is_login === false) {
+        localStorage.removeItem("isLogin");
+        setIsLogin(localStorage.removeItem("isLogin"));
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/");
+        }
+      }
     } catch (error) {}
   };
 
@@ -103,9 +107,9 @@ const Song = () => {
                     <th>
                       <div class="th-content">Amount</div>
                     </th>
-                    <th>
+                    {/* <th>
                       <div class="th-content">File</div>
-                    </th>
+                    </th> */}
                     <th>
                       <div class="th-content">Thumbnail</div>
                     </th>
@@ -171,8 +175,8 @@ const Song = () => {
                             )}
                           </ul>
                         </td>
-                        <td>$ {item.amount}</td>
-                        <td>
+                        <td>$ {item.amount}:00</td>
+                        {/* <td>
                           {item.music_file === "" ? (
                             "N/A"
                           ) : item.music_file ? (
@@ -180,7 +184,7 @@ const Song = () => {
                           ) : (
                             ""
                           )}
-                        </td>
+                        </td> */}
                         <td>
                           <img className="w-75" src={IMG + item.image} />
                         </td>

@@ -164,9 +164,9 @@ const AddSong = () => {
     try {
       const reqObj = {
         name: formData.name,
-        mood: dataArry,
+        mood: dataArry3,
         occasion: dataArry2,
-        genre: dataArry3,
+        genre: dataArry,
         description: formData.description,
         music_file: imageData,
         duration: formData.minutes + ":" + formData.second,

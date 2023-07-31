@@ -4,7 +4,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import OrderTable from "../components/OrderTable";
 import { header } from "../schemas/Validation";
-const Order = () => {
+import { useNavigate } from "react-router";
+const Order = ({ setIsLogin }) => {
+  const navigate = useNavigate();
   const [comonSataus, setComonSataus] = useState(2);
   const [data, setData] = useState([]);
   const orderDataTable = async (data) => {
@@ -12,6 +14,13 @@ const Order = () => {
       const response = await API.order_data_table(data, header);
       console.log("response", response);
       setData(response.data.data);
+      if (response.data.is_login === false) {
+        localStorage.removeItem("isLogin");
+        setIsLogin(localStorage.removeItem("isLogin"));
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/");
+        }
+      }
     } catch (error) {}
   };
 
@@ -62,7 +71,7 @@ const Order = () => {
                   aria-controls="rounded-corner-pills-icon-home"
                   aria-selected="true"
                 >
-                  <i class="las la-shopping-cart"></i> Pending Orders
+                  <i class="las la-shopping-cart"></i> In-completed Orders
                 </a>
               </li>
               <li class="nav-item ml-2 mr-2" onClick={() => orderDataTable(1)}>

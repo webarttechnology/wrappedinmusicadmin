@@ -41,8 +41,8 @@ const OrderTable = ({ data, title }) => {
                       <td>$ {item.amount}</td>
                       <td>{item.Song.name}</td>
                       <td>
-                        {item.status === "0" ? (
-                          <span class="badge badge-info">Pending</span>
+                        {item.fulfillment_status === "0" ? (
+                          <span class="badge badge-info">In-completed</span>
                         ) : (
                           <span class="badge badge-success">Completed</span>
                         )}

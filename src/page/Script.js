@@ -1,26 +1,44 @@
 import React from "react";
 import { Edit2 } from "react-feather";
 import * as API from "../api/index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { header } from "../schemas/Validation";
 import { toast } from "react-toastify";
-const Script = () => {
+import { IMG } from "../api/constant";
+import Songtable from "./Songtable";
+const Script = ({ setIsLogin }) => {
   const [data, setData] = useState([]);
-  console.log("data", data);
+  const navigate = useNavigate();
+  const orderDataTable = async (data) => {
+    try {
+      const response = await API.song_listing(data, header);
+      console.log("response", response);
+      setData(response.data.data);
+    } catch (error) {}
+  };
+
   const commonDataTable = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.script_listing(header);
-      console.log("response", response);
+      console.log("songList", response);
       setData(response.data.data);
+      if (response.data.is_login === false) {
+        localStorage.removeItem("isLogin");
+        setIsLogin(localStorage.removeItem("isLogin"));
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/");
+        }
+      }
     } catch (error) {}
   };
 
   const userDelete = async (songId) => {
     try {
       const response = await API.script_delete(songId, header);
+      console.log("response", response);
       if (response.data.success === 1) {
         commonDataTable();
         toast(response.data.msg, {
@@ -77,17 +95,23 @@ const Script = () => {
                       <div class="th-content">Details</div>
                     </th>
                     <th>
-                      <div class="th-content">Categories</div>
+                      <div class="th-content">Genre</div>
                     </th>
                     <th>
-                      <div class="th-content">
-                        {" "}
-                        Mood Tag (OR) <br /> Sub-Categories
-                      </div>
+                      <div class="th-content">Occasion</div>
                     </th>
                     <th>
+                      <div class="th-content">Mood</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Amount</div>
+                    </th>
+                    {/* <th>
                       <div class="th-content">File</div>
-                    </th>
+                    </th> */}
+                    {/* <th>
+                      <div class="th-content">Thumbnail</div>
+                    </th> */}
                     <th>
                       <div class="th-content">Action</div>
                     </th>
@@ -104,19 +128,54 @@ const Script = () => {
                         <td width="400">
                           <p>{item.description}</p>
                         </td>
-                        <td width="50">
-                          {item.Scriptcategories[0].category.name}
+                        <td width="200">
+                          <ul className="p-0 moodTag">
+                            {item.genere.length === 0 ? (
+                              "N/A"
+                            ) : (
+                              <>
+                                {item.genere.map((catItem, index) => (
+                                  <li key={index}>
+                                    {index + 1}) {catItem.subcategory.name}
+                                  </li>
+                                ))}
+                              </>
+                            )}
+                          </ul>
+                        </td>
+
+                        <td width="200">
+                          <ul className="p-0 moodTag">
+                            {item.occation.length === 0 ? (
+                              "N/A "
+                            ) : (
+                              <>
+                                {item.occation.map((catItem, index) => (
+                                  <li key={index}>
+                                    {index + 1}) {catItem.subcategory.name}
+                                  </li>
+                                ))}
+                              </>
+                            )}
+                          </ul>
                         </td>
                         <td width="200">
                           <ul className="p-0 moodTag">
-                            {item.Scriptcategories.map((catItem, index) => (
-                              <li key={index}>
-                                {index + 1}) {catItem.subcategory.name}
-                              </li>
-                            ))}
+                            {item.mood.length === 0 ? (
+                              "N/A"
+                            ) : (
+                              <>
+                                {item.mood.map((catItem, index) => (
+                                  <li key={index}>
+                                    {index + 1}) {catItem.subcategory.name}
+                                  </li>
+                                ))}
+                              </>
+                            )}
                           </ul>
                         </td>
-                        <td>
+                        <td>$ {item.amount}:00</td>
+                        {/* <td>
                           {item.music_file === "" ? (
                             "N/A"
                           ) : item.music_file ? (
@@ -124,7 +183,8 @@ const Script = () => {
                           ) : (
                             ""
                           )}
-                        </td>
+                        </td> */}
+
                         <td width="80">
                           <div className="d-flex justify-content-center">
                             <button
