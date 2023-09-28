@@ -15,6 +15,7 @@ import AddSong from "../page/AddSong";
 import EditCategoris from "../page/EditCategoris";
 import Script from "../page/Script";
 import AddScript from "../page/AddScript";
+import SongAdd from "../page/Song/SongAdd";
 const AppRoute = () => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
@@ -51,7 +52,9 @@ const AppRoute = () => {
                     path="/song-list"
                     element={<Song setIsLogin={setIsLogin} />}
                   />
+                  <Route path="/add-music" element={<SongAdd />} />
                   <Route path="/add-music" element={<AddSong />} />
+                  
                   <Route
                     path="/script-list"
                     element={<Script setIsLogin={setIsLogin} />}
