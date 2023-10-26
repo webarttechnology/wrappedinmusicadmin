@@ -18,9 +18,9 @@ const SongAdd = () => {
             <div className="row">
               <div className="normal">
                 <div className="row">
-                  <div className="col-md-9">
+                  <div className="col-md-12">
                     <div className="row borderUS">
-                      <div className="col-md-12">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Title
