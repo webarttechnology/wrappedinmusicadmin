@@ -234,7 +234,7 @@ const AddSong = () => {
                 <div className="row">
                   <div className="col-md-9">
                     <div className="row borderUS">
-                      <div className="col-md-12">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Title
@@ -250,7 +250,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Choose Genre
@@ -298,7 +298,7 @@ const AddSong = () => {
                           </>
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Choose Occasion
@@ -347,7 +347,7 @@ const AddSong = () => {
                           </>
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Choose Mood
@@ -396,7 +396,7 @@ const AddSong = () => {
                         </div>
                       </div>
 
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Amount
@@ -412,7 +412,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Minutes
@@ -428,7 +428,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Second
@@ -444,7 +444,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Music File
@@ -481,11 +481,6 @@ const AddSong = () => {
                                       : "Upload MP3 files here"}
                                     .
                                   </span>
-                                  <br />
-                                  <span class="note needsclick">
-                                    (This is a Uploadzone. Browse your files)
-                                  </span>
-
                                   <input
                                     hidden
                                     id="fileT"
@@ -499,7 +494,7 @@ const AddSong = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-4">
                         <div class="form-group">
                           <label>
                             Music thumbnail
@@ -536,11 +531,6 @@ const AddSong = () => {
                                       ? "File Uploaded successfully"
                                       : "Upload thumbnail files here"}
                                   </span>
-                                  <br />
-                                  <span class="note needsclick">
-                                    (This is a Uploadzone. Browse your files)
-                                  </span>
-
                                   <input
                                     hidden
                                     id="file"
@@ -568,6 +558,121 @@ const AddSong = () => {
                             class="form-control"
                             rows="3"
                           ></textarea>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div class="form-group">
+                          <label>
+                            Templete Type
+                            <span class="text-danger">*</span>
+                          </label>
+                          <select className="form-control">
+                            <option>--- Select Templete---</option>
+                            <option value="1">Intro-Middle-Outro</option>
+                            <option value="2">Intro-Outro</option>
+                            <option value="3">Intro</option>
+                            <option value="4">Outro</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div class="form-group">
+                          <label>
+                            Upload Templete
+                            <span class="text-danger">*</span>
+                          </label>
+                          <div id="dropzone">
+                            <form
+                              encType="multipart/form-data"
+                              action="/upload"
+                              class="dropzone needsclick dz-clickable"
+                            >
+                              <label
+                                for="file"
+                                className="dz-message needsclick"
+                              >
+                                <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                <form encType="multipart/form-data">
+                                  <span
+                                    class={
+                                      songThumb
+                                        ? "dz-button text-success"
+                                        : "dz-button"
+                                    }
+                                  >
+                                    {songThumb ? (
+                                      <span className="d-inline-block mr-2">
+                                        <CheckCircle color="green" size="30" />
+                                      </span>
+                                    ) : (
+                                      ""
+                                    )}
+
+                                    {songThumb
+                                      ? "File Uploaded successfully"
+                                      : "Upload Templete files here"}
+                                  </span>
+                                  <input
+                                    hidden
+                                    id="file"
+                                    type="file"
+                                    onChange={imageUploadingThum}
+                                    class="image-preview-filepond"
+                                  />
+                                </form>
+                              </label>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-md-4">
+                        <div class="form-group">
+                          <label>
+                            Upload Sample
+                            <span class="text-danger">*</span>
+                          </label>
+                          <div id="dropzone">
+                            <form
+                              encType="multipart/form-data"
+                              action="/upload"
+                              class="dropzone needsclick dz-clickable"
+                            >
+                              <label
+                                for="file"
+                                className="dz-message needsclick"
+                              >
+                                <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                <form encType="multipart/form-data">
+                                  <span
+                                    class={
+                                      songThumb
+                                        ? "dz-button text-success"
+                                        : "dz-button"
+                                    }
+                                  >
+                                    {songThumb ? (
+                                      <span className="d-inline-block mr-2">
+                                        <CheckCircle color="green" size="30" />
+                                      </span>
+                                    ) : (
+                                      ""
+                                    )}
+
+                                    {songThumb
+                                      ? "File Uploaded successfully"
+                                      : "Upload Sample files here"}
+                                  </span>
+                                  <input
+                                    hidden
+                                    id="file"
+                                    type="file"
+                                    onChange={imageUploadingThum}
+                                    class="image-preview-filepond"
+                                  />
+                                </form>
+                              </label>
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>

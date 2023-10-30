@@ -20,6 +20,7 @@ const Login = ({ setIsLogin }) => {
     });
 
   const loginSubmit = async (data) => {
+    localStorage.setItem("isLogin", true);
     try {
       const response = await API.user_registration(data);
       if (response.data.success === 1) {

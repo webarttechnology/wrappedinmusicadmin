@@ -52,9 +52,9 @@ const AppRoute = () => {
                     path="/song-list"
                     element={<Song setIsLogin={setIsLogin} />}
                   />
-                  <Route path="/add-music" element={<SongAdd />} />
+                  {/* <Route path="/add-music" element={<SongAdd />} /> */}
                   <Route path="/add-music" element={<AddSong />} />
-                  
+
                   <Route
                     path="/script-list"
                     element={<Script setIsLogin={setIsLogin} />}
