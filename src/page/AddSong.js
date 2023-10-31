@@ -5,9 +5,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Select from "react-dropdown-select";
-import { header } from "../schemas/Validation";
+import { MESSAGE, header } from "../schemas/Validation";
 import { toast } from "react-toastify";
 import { CheckCircle } from "react-feather";
+import SongTemplete from "./Song/SongTemplete";
 const initialData = {
   name: "",
   category_id: "",
@@ -43,6 +44,12 @@ const AddSong = () => {
   const [tagArry3, setTagArry3] = useState([]);
 
   const [songThumb, setSongThumb] = useState("");
+
+  // ? Templete Type
+  const [isTemplete, setIsTemplete] = useState(false);
+
+  const [templeteData, setTempleteData] = useState("");
+  const [adminTemFile, setAdminTemFile] = useState("");
 
   const onChaeckBox = async (idData, moodTag) => {
     moodArry.includes(moodTag) == false
@@ -161,6 +168,7 @@ const AddSong = () => {
     setIsLoading(true);
     const subArry = [];
     subArry.push(formData.subcategory_id);
+
     try {
       const reqObj = {
         name: formData.name,
@@ -172,28 +180,42 @@ const AddSong = () => {
         duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
         image: songThumb,
+        templete: templeteData,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
       console.log("response", response);
       if (response.data.success === 1) {
-        setIsLoading(false);
-        toast(response.data.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          type: "success",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        //setIsLoading(false);
+        MESSAGE(response.data.msg, 1);
         navigate("/song-list");
       } else {
         setIsLoading(false);
       }
     } catch (error) {}
+  };
+
+  // ? Music Tamplete
+
+  const templeteType = (e) => {
+    const typeData = e.target.value;
+    setIsTemplete(true);
+    if (typeData === "1") {
+      setTempleteData("1");
+    } else if (typeData === "2") {
+      setTempleteData("2");
+    } else if (typeData === "3") {
+      setTempleteData("3");
+    } else if (typeData === "4") {
+      setTempleteData("4");
+    } else if (typeData === "5") {
+      setTempleteData("5");
+    } else if (typeData === "6") {
+      setTempleteData("7");
+    } else if (typeData === "7") {
+      setTempleteData("7");
+    }
+    console.log("typeData", typeData);
   };
 
   const closeModal = () => {
@@ -560,123 +582,9 @@ const AddSong = () => {
                           ></textarea>
                         </div>
                       </div>
-                      <div className="col-md-4">
-                        <div class="form-group">
-                          <label>
-                            Templete Type
-                            <span class="text-danger">*</span>
-                          </label>
-                          <select className="form-control">
-                            <option>--- Select Templete---</option>
-                            <option value="1">Intro-Middle-Outro</option>
-                            <option value="2">Intro-Outro</option>
-                            <option value="3">Intro</option>
-                            <option value="4">Outro</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-md-4">
-                        <div class="form-group">
-                          <label>
-                            Upload Templete
-                            <span class="text-danger">*</span>
-                          </label>
-                          <div id="dropzone">
-                            <form
-                              encType="multipart/form-data"
-                              action="/upload"
-                              class="dropzone needsclick dz-clickable"
-                            >
-                              <label
-                                for="file"
-                                className="dz-message needsclick"
-                              >
-                                <div class="icon dripicons dripicons-browser-upload"></div>{" "}
-                                <form encType="multipart/form-data">
-                                  <span
-                                    class={
-                                      songThumb
-                                        ? "dz-button text-success"
-                                        : "dz-button"
-                                    }
-                                  >
-                                    {songThumb ? (
-                                      <span className="d-inline-block mr-2">
-                                        <CheckCircle color="green" size="30" />
-                                      </span>
-                                    ) : (
-                                      ""
-                                    )}
-
-                                    {songThumb
-                                      ? "File Uploaded successfully"
-                                      : "Upload Templete files here"}
-                                  </span>
-                                  <input
-                                    hidden
-                                    id="file"
-                                    type="file"
-                                    onChange={imageUploadingThum}
-                                    class="image-preview-filepond"
-                                  />
-                                </form>
-                              </label>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-4">
-                        <div class="form-group">
-                          <label>
-                            Upload Sample
-                            <span class="text-danger">*</span>
-                          </label>
-                          <div id="dropzone">
-                            <form
-                              encType="multipart/form-data"
-                              action="/upload"
-                              class="dropzone needsclick dz-clickable"
-                            >
-                              <label
-                                for="file"
-                                className="dz-message needsclick"
-                              >
-                                <div class="icon dripicons dripicons-browser-upload"></div>{" "}
-                                <form encType="multipart/form-data">
-                                  <span
-                                    class={
-                                      songThumb
-                                        ? "dz-button text-success"
-                                        : "dz-button"
-                                    }
-                                  >
-                                    {songThumb ? (
-                                      <span className="d-inline-block mr-2">
-                                        <CheckCircle color="green" size="30" />
-                                      </span>
-                                    ) : (
-                                      ""
-                                    )}
-
-                                    {songThumb
-                                      ? "File Uploaded successfully"
-                                      : "Upload Sample files here"}
-                                  </span>
-                                  <input
-                                    hidden
-                                    id="file"
-                                    type="file"
-                                    onChange={imageUploadingThum}
-                                    class="image-preview-filepond"
-                                  />
-                                </form>
-                              </label>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
+
                   <div className="col-md-3">
                     <h6>Genre Tag</h6>
                     <ul className="chooesTeg">
@@ -708,7 +616,7 @@ const AddSong = () => {
               </button>
             ) : (
               <button
-                disabled={btnDisabal ? true : false}
+                //disabled={btnDisabal ? true : false}
                 onClick={add_subcatagori}
                 type="reset"
                 class="btn btn-success mr-2"
