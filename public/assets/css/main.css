@@ -11342,6 +11342,8 @@ a.text-primary:hover {
 }
 .typeoftemplete li {
   list-style: none;
+  display: block;
+  margin-bottom: 5px;
 }
 .typeoftemplete span {
   color: #000;

@@ -664,11 +664,35 @@ const SongTemplete = ({ uploadtemplete }) => {
                 </div>
               </div>
               <div className="col-md-3">
-                <h5 className="mb-3">Chooses templete type</h5>
+                <h5 className="mb-3">Templete type Added</h5>
                 <ul className="typeoftemplete">
                   <li>
                     <CheckCircle color="green" size="20" />
                     <span>Intro-Middle-Outro</span>
+                  </li>
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Intro-Outro</span>
+                  </li>
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Middle-Outro</span>
+                  </li>
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Intro-Middle</span>
+                  </li>
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Intro</span>
+                  </li>
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Outro</span>
+                  </li>
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Middle</span>
                   </li>
                 </ul>
               </div>
