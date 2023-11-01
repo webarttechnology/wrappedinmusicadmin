@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit2 } from "react-feather";
+import { Edit2, PlusCircle } from "react-feather";
 import * as API from "../api/index";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -114,13 +114,70 @@ const Song = ({ setIsLogin }) => {
                       <div class="th-content">Thumbnail</div>
                     </th>
                     <th>
+                      <div class="th-content">Templete</div>
+                    </th>
+                    <th>
                       <div class="th-content">Action</div>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.length === 0 ? (
-                    <h4 className="text-center">No Record found</h4>
+                    <>
+                      {/* <h4 className="text-center">No Record found</h4> */}
+                      <tr>
+                        <td>1</td>
+                        <td width="150"> Happy birthday to you</td>
+                        <td width="400">
+                          <p>
+                            Just because some cannot see The dream as clear as
+                            he That they should make it become an illusion
+                          </p>
+                        </td>
+                        <td width="200">
+                          <ul className="p-0 moodTag">hdh</ul>
+                        </td>
+
+                        <td width="200">
+                          <ul className="p-0 moodTag">fhdhs</ul>
+                        </td>
+                        <td width="200">gdrgs</td>
+                        <td>$ 50 :00</td>
+                        {/* <td>
+                          {item.music_file === "" ? (
+                            "N/A"
+                          ) : item.music_file ? (
+                            <i class="bi bi-music-note-beamed musicFile"></i>
+                          ) : (
+                            ""
+                          )}
+                        </td> */}
+                        <td>images</td>
+                        <td>
+                          <Link to="/song-templete" class=" btn btn-info px-2">
+                            <PlusCircle size={20} />
+                          </Link>
+                        </td>
+                        <td width="80">
+                          <div className="d-flex justify-content-center">
+                            <button
+                              type="button"
+                              //onClick={() => userStatus(item.id)}
+                              class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
+                            >
+                              <Edit2 size={20} />
+                            </button>
+                            <button
+                              type="button"
+                              //onClick={() => userDelete(item.id)}
+                              class="align-items-center btn btn-danger d-flex font-20 px-2"
+                            >
+                              <i class="las la-times-circle"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    </>
                   ) : (
                     data.map((item, index) => (
                       <tr key={index}>

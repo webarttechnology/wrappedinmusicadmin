@@ -45,12 +45,6 @@ const AddSong = () => {
 
   const [songThumb, setSongThumb] = useState("");
 
-  // ? Templete Type
-  const [isTemplete, setIsTemplete] = useState(false);
-
-  const [templeteData, setTempleteData] = useState("");
-  const [adminTemFile, setAdminTemFile] = useState("");
-
   const onChaeckBox = async (idData, moodTag) => {
     moodArry.includes(moodTag) == false
       ? moodArry.push(moodTag)
@@ -180,7 +174,7 @@ const AddSong = () => {
         duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
         image: songThumb,
-        templete: templeteData,
+        //templete: templeteData,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
@@ -196,27 +190,6 @@ const AddSong = () => {
   };
 
   // ? Music Tamplete
-
-  const templeteType = (e) => {
-    const typeData = e.target.value;
-    setIsTemplete(true);
-    if (typeData === "1") {
-      setTempleteData("1");
-    } else if (typeData === "2") {
-      setTempleteData("2");
-    } else if (typeData === "3") {
-      setTempleteData("3");
-    } else if (typeData === "4") {
-      setTempleteData("4");
-    } else if (typeData === "5") {
-      setTempleteData("5");
-    } else if (typeData === "6") {
-      setTempleteData("7");
-    } else if (typeData === "7") {
-      setTempleteData("7");
-    }
-    console.log("typeData", typeData);
-  };
 
   const closeModal = () => {
     setIsOpen(false);

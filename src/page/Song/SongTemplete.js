@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { CheckCircle } from "react-feather";
 
-const SongTemplete = ({
-  templeteData,
-  uploadtemplete,
-  isTemplete,
-  adminTemFile,
-}) => {
+const SongTemplete = ({ uploadtemplete }) => {
+  // ? Templete Type
+  const [isTemplete, setIsTemplete] = useState(false);
+
+  const [templeteData, setTempleteData] = useState("");
+  const [adminTemFile, setAdminTemFile] = useState("");
+
+  const templeteType = (e) => {
+    const typeData = e.target.value;
+    setIsTemplete(true);
+    if (typeData === "1") {
+      setTempleteData("1");
+    } else if (typeData === "2") {
+      setTempleteData("2");
+    } else if (typeData === "3") {
+      setTempleteData("3");
+    } else if (typeData === "4") {
+      setTempleteData("4");
+    } else if (typeData === "5") {
+      setTempleteData("5");
+    } else if (typeData === "6") {
+      setTempleteData("6");
+    } else if (typeData === "7") {
+      setTempleteData("7");
+    }
+    console.log("typeData", typeData);
+  };
   return (
     <>
       <div class="col-lg-12 layout-spacing">
@@ -21,186 +42,635 @@ const SongTemplete = ({
 
           <div class="widget-content widget-content-area">
             <div className="row">
-              <div className="normal">
-                <div className="justify-content-center row">
-                  <div className="col-md-6">
-                    <div class="form-group">
-                      <label>
-                        Templete Type
-                        <span class="text-danger">*</span>
-                      </label>
-                      <select className="form-control">
-                        <option>--- Select Templete---</option>
-                        <option value="1">Intro-Middle-Outro</option>
-                        <option value="2">Intro-Outro</option>
-                        <option value="3">Middle-Outro</option>
-                        <option value="4">Intro-Middle</option>
-                        <option value="5">Intro</option>
-                        <option value="6">Outro</option>
-                        <option value="7">Middle</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-4">
-                    <div class="form-group">
-                      <label>
-                        Upload Templete
-                        <span class="text-danger">*</span>
-                      </label>
-                      <div id="dropzone">
-                        <form
-                          encType="multipart/form-data"
-                          action="/upload"
-                          class="dropzone needsclick dz-clickable"
+              <div className="col-md-9 borderUS">
+                <div className="normal">
+                  <div className="justify-content-center row">
+                    <div className="col-md-6">
+                      <div class="form-group">
+                        <label>
+                          Templete Type
+                          <span class="text-danger">*</span>
+                        </label>
+                        <select
+                          className="form-control"
+                          onChange={templeteType}
                         >
-                          <label for="file" className="dz-message needsclick">
-                            <div class="icon dripicons dripicons-browser-upload"></div>{" "}
-                            <form encType="multipart/form-data">
-                              <span
-                                class={
-                                  adminTemFile
-                                    ? "dz-button text-success"
-                                    : "dz-button"
-                                }
-                              >
-                                {adminTemFile ? (
-                                  <span className="d-inline-block mr-2">
-                                    <CheckCircle color="green" size="30" />
-                                  </span>
-                                ) : (
-                                  ""
-                                )}
-
-                                {adminTemFile
-                                  ? "File Uploaded successfully"
-                                  : "Upload Templete files here"}
-                              </span>
-                              <input
-                                hidden
-                                id="file"
-                                type="file"
-                                onChange={uploadtemplete}
-                                class="image-preview-filepond"
-                              />
-                            </form>
-                          </label>
-                        </form>
+                          <option>--- Select Templete---</option>
+                          <option value="1">Intro-Middle-Outro</option>
+                          <option value="2">Intro-Outro</option>
+                          <option value="3">Middle-Outro</option>
+                          <option value="4">Intro-Middle</option>
+                          <option value="5">Intro</option>
+                          <option value="6">Outro</option>
+                          <option value="7">Middle</option>
+                        </select>
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-4">
-                    <div class="form-group">
-                      <label>
-                        Upload Sample
-                        <span class="text-danger">*</span>
-                      </label>
-                      <div id="dropzone">
-                        <form
-                          encType="multipart/form-data"
-                          action="/upload"
-                          class="dropzone needsclick dz-clickable"
-                        >
-                          <label for="file" className="dz-message needsclick">
-                            <div class="icon dripicons dripicons-browser-upload"></div>{" "}
-                            <form encType="multipart/form-data">
-                              <span
-                                class={
-                                  adminTemFile
-                                    ? "dz-button text-success"
-                                    : "dz-button"
-                                }
+                  {templeteData === "1" || templeteData === "3" ? (
+                    <>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Templete
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
                               >
-                                {adminTemFile ? (
-                                  <span className="d-inline-block mr-2">
-                                    <CheckCircle color="green" size="30" />
-                                  </span>
-                                ) : (
-                                  ""
-                                )}
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
 
-                                {adminTemFile
-                                  ? "File Uploaded successfully"
-                                  : "Upload Sample files here"}
-                              </span>
-                              <input
-                                hidden
-                                id="file"
-                                type="file"
-                                // onChange={imageUploadingThum}
-                                class="image-preview-filepond"
-                              />
-                            </form>
-                          </label>
-                        </form>
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Templete files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      onChange={uploadtemplete}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Sample
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
+
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Sample files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      // onChange={imageUploadingThum}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Middle Start
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              // value={formData.second}
+                              name="start"
+                              // onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Middle End
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              //value={formData.second}
+                              name="end"
+                              //onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Duration Of Song
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              //value={formData.second}
+                              name="end"
+                              //onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-md-12">
+                          <button class="btn btn-info mr-2">
+                            Add Templete
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  ) : templeteData === "2" ? (
+                    <>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Templete
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
 
-                  <div
-                    className={
-                      templeteData === "1" && templeteData === "3"
-                        ? "col-md-4 "
-                        : "d-none"
-                    }
-                  >
-                    <div class="form-group">
-                      <label>
-                        Middle Start
-                        <span class="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter here"
-                        // value={formData.second}
-                        name="start"
-                        // onChange={handalerChanges}
-                      />
-                    </div>
-                  </div>
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Templete files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      onChange={uploadtemplete}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Sample
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
 
-                  <div
-                    className={
-                      templeteData === "1" && templeteData === "3"
-                        ? "col-md-4 "
-                        : "d-none"
-                    }
-                  >
-                    <div class="form-group">
-                      <label>
-                        Middle End
-                        <span class="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter here"
-                        //value={formData.second}
-                        name="end"
-                        //onChange={handalerChanges}
-                      />
-                    </div>
-                  </div>
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Sample files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      // onChange={imageUploadingThum}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
 
-                  <div className="col-md-4">
-                    <div class="form-group">
-                      <label>
-                        Duration Of Song
-                        <span class="text-danger">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Enter here"
-                        //value={formData.second}
-                        name="end"
-                        //onChange={handalerChanges}
-                      />
-                    </div>
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Duration Of Song
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              //value={formData.second}
+                              name="end"
+                              //onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <button class="btn btn-info mr-2">
+                            Add Templete
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : templeteData === "4" || templeteData === "7" ? (
+                    <>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Templete
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
+
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Templete files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      onChange={uploadtemplete}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Sample
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
+
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Sample files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      // onChange={imageUploadingThum}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Middle Start
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              // value={formData.second}
+                              name="start"
+                              // onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Middle End
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              //value={formData.second}
+                              name="end"
+                              //onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <button class="btn btn-info mr-2">
+                            Add Templete
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : templeteData === "5" ? (
+                    ""
+                  ) : templeteData === "6" ? (
+                    <>
+                      <div className="row">
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Templete
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
+
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Templete files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      onChange={uploadtemplete}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Upload Sample
+                              <span class="text-danger">*</span>
+                            </label>
+                            <div id="dropzone">
+                              <form
+                                encType="multipart/form-data"
+                                action="/upload"
+                                class="dropzone needsclick dz-clickable"
+                              >
+                                <label
+                                  for="file"
+                                  className="dz-message needsclick"
+                                >
+                                  <div class="icon dripicons dripicons-browser-upload"></div>{" "}
+                                  <form encType="multipart/form-data">
+                                    <span
+                                      class={
+                                        adminTemFile
+                                          ? "dz-button text-success"
+                                          : "dz-button"
+                                      }
+                                    >
+                                      {adminTemFile ? (
+                                        <span className="d-inline-block mr-2">
+                                          <CheckCircle
+                                            color="green"
+                                            size="30"
+                                          />
+                                        </span>
+                                      ) : (
+                                        ""
+                                      )}
+
+                                      {adminTemFile
+                                        ? "File Uploaded successfully"
+                                        : "Upload Sample files here"}
+                                    </span>
+                                    <input
+                                      hidden
+                                      id="file"
+                                      type="file"
+                                      // onChange={imageUploadingThum}
+                                      class="image-preview-filepond"
+                                    />
+                                  </form>
+                                </label>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-md-4">
+                          <div class="form-group">
+                            <label>
+                              Duration Of Song
+                              <span class="text-danger">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter here"
+                              //value={formData.second}
+                              name="end"
+                              //onChange={handalerChanges}
+                            />
+                          </div>
+                        </div>
+                        <div className="col-md-12">
+                          <button class="btn btn-info mr-2">
+                            Add Templete
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    ""
+                  )}
+
+                  {/* <div className="row">
+                  <div className="col-md-12">
+                    <button class="btn btn-success mr-2">Confirm</button>
                   </div>
+                </div> */}
                 </div>
+              </div>
+              <div className="col-md-3">
+                <h5 className="mb-3">Chooses templete type</h5>
+                <ul className="typeoftemplete">
+                  <li>
+                    <CheckCircle color="green" size="20" />
+                    <span>Intro-Middle-Outro</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

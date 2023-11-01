@@ -11337,3 +11337,14 @@ a.text-primary:hover {
   background: #f1f2f3;
   text-transform: uppercase;
 }
+.typeoftemplete {
+  padding: 0;
+}
+.typeoftemplete li {
+  list-style: none;
+}
+.typeoftemplete span {
+  color: #000;
+  margin-left: 5px;
+  display: inline-block;
+}
