@@ -25,6 +25,8 @@ const SongTemplete = ({ uploadtemplete }) => {
       setTempleteData("6");
     } else if (typeData === "7") {
       setTempleteData("7");
+    } else if (typeData === "8") {
+      setTempleteData("8");
     }
     console.log("typeData", typeData);
   };
@@ -56,13 +58,14 @@ const SongTemplete = ({ uploadtemplete }) => {
                           onChange={templeteType}
                         >
                           <option>--- Select Templete---</option>
+                          <option value="8">Happy birthday</option>
                           <option value="1">Intro-Middle-Outro</option>
                           <option value="2">Intro-Outro</option>
-                          <option value="3">Middle-Outro</option>
+                          {/* <option value="3">Middle-Outro</option>
                           <option value="4">Intro-Middle</option>
                           <option value="5">Intro</option>
                           <option value="6">Outro</option>
-                          <option value="7">Middle</option>
+                          <option value="7">Middle</option> */}
                         </select>
                       </div>
                     </div>
@@ -197,7 +200,7 @@ const SongTemplete = ({ uploadtemplete }) => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Middle End
+                              Message duration
                               <span class="text-danger">*</span>
                             </label>
                             <input
@@ -235,7 +238,7 @@ const SongTemplete = ({ uploadtemplete }) => {
                         </div>
                       </div>
                     </>
-                  ) : templeteData === "2" ? (
+                  ) : templeteData === "2" || templeteData === "8" ? (
                     <>
                       <div className="row">
                         <div className="col-md-4">
@@ -498,7 +501,7 @@ const SongTemplete = ({ uploadtemplete }) => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Middle End
+                              Message duration
                               <span class="text-danger">*</span>
                             </label>
                             <input
@@ -676,9 +679,9 @@ const SongTemplete = ({ uploadtemplete }) => {
                   </li>
                   <li>
                     <CheckCircle color="green" size="20" />
-                    <span>Middle-Outro</span>
+                    <span>Happy birthday</span>
                   </li>
-                  <li>
+                  {/* <li>
                     <CheckCircle color="green" size="20" />
                     <span>Intro-Middle</span>
                   </li>
@@ -693,7 +696,7 @@ const SongTemplete = ({ uploadtemplete }) => {
                   <li>
                     <CheckCircle color="green" size="20" />
                     <span>Middle</span>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

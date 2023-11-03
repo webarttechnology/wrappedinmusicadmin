@@ -29,7 +29,7 @@ const AddCategoris = () => {
   const get_categoryList = async () => {
     try {
       const response = await API.get_subCategory(header);
-      console.log("response", response);
+      console.log("Cataresponse", response);
       setCatagoriData(response.data.data);
     } catch (error) {}
   };
@@ -72,7 +72,7 @@ const AddCategoris = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                <h4>Add Categories</h4>
+                <h4>Add Sub Categories</h4>
               </div>
             </div>
           </div>
