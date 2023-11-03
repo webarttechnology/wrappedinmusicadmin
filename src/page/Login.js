@@ -1,7 +1,7 @@
 import React from "react";
 import * as API from "../api/index";
 import { useFormik } from "formik";
-import { loginSchema } from "../schemas/Validation";
+import { MESSAGE, loginSchema } from "../schemas/Validation";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const initialValues = {
@@ -31,29 +31,9 @@ const Login = ({ setIsLogin }) => {
         };
         localStorage.setItem("_tokenCode", JSON.stringify(headerObj));
         navigate("/dashboard");
-        toast(response.data.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          type: "success",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        MESSAGE(response.data.msg, 1);
       } else {
-        toast(response.data.msg, {
-          position: "top-right",
-          autoClose: 5000,
-          type: "error",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        MESSAGE(response.data.msg);
       }
     } catch (error) {}
   };

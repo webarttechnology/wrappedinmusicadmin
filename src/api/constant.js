@@ -6,7 +6,7 @@ export const IMG = "https://webarttechnology.co.in/backend/";
 export const URL = "https://webarttechnology.co.in/backend/admin";
 //export const URL = "http://admin.wrappedinmusic.mypickmyvote.com/api";
 
-export const SIGNUP = `${URL}/admin`;
+export const SIGNUP = `${URL}`;
 export const CATAGORIES = `${URL}/category`;
 export const SUBCATAGORIES = `${URL}/subcategory`;
 export const SONGS = `${URL}/songs`;

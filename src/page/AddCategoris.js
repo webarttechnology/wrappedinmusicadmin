@@ -44,7 +44,7 @@ const AddCategoris = () => {
       const reqObj = {
         name: formData.name,
         details: formData.details,
-        category_id: catagoriId,
+        category: catagoriId,
         image: imageData,
       };
       console.log("reqObj", reqObj);
